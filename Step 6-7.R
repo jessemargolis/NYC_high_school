@@ -98,36 +98,44 @@ write.csv(sch_wide_retention_all, file = '/Users/elmerleezy/Desktop/sch_wide_ret
 
 
 
-###### Make a rention rate table of different grades, acroos different years
-require(plyr)
-grade_retain_2014 <- data.frame(ddply(Merge_2013_2014,.(bn_2013),summarise,
-                                     gradePK= sum(grade_level_2013==-1 & retained_in_school ==1)/sum((grade_level_2014==-1 & retained_in_school ==1)|(grade_level_2014==-1 & retained_in_school ==0)),
-                                     grade0= sum(grade_level_2013==0 & retained_in_school ==1)/sum((grade_level_2014==0 & retained_in_school ==1)|(grade_level_2014==0 & retained_in_school ==0)),
-                                     grade1= sum(grade_level_2013==1 & retained_in_school ==1)/sum((grade_level_2014==1 & retained_in_school ==1)|(grade_level_2014==1 & retained_in_school ==0)),
-                                     grade2= sum(grade_level_2013==2 & retained_in_school ==1)/sum((grade_level_2014==2 & retained_in_school ==1)|(grade_level_2014==2 & retained_in_school ==0)),
-                                     grade3= sum(grade_level_2013==3 & retained_in_school ==1)/sum((grade_level_2014==3 & retained_in_school ==1)|(grade_level_2014==3 & retained_in_school ==0)),
-                                     grade4= sum(grade_level_2013==4 & retained_in_school ==1)/sum((grade_level_2014==4 & retained_in_school ==1)|(grade_level_2014==4 & retained_in_school ==0)),
-                                     grade5= sum(grade_level_2013==5 & retained_in_school ==1)/sum((grade_level_2014==5 & retained_in_school ==1)|(grade_level_2014==5 & retained_in_school ==0)),
-                                     grade6= sum(grade_level_2013==6 & retained_in_school ==1)/sum((grade_level_2014==6 & retained_in_school ==1)|(grade_level_2014==6 & retained_in_school ==0)),
-                                     grade7= sum(grade_level_2013==7 & retained_in_school ==1)/sum((grade_level_2014==7 & retained_in_school ==1)|(grade_level_2014==7 & retained_in_school ==0)),
-                                     grade8= sum(grade_level_2013==8 & retained_in_school ==1)/sum((grade_level_2014==8 & retained_in_school ==1)|(grade_level_2014==8 & retained_in_school ==0)),
-                                     grade9= sum(grade_level_2013==9 & retained_in_school ==1)/sum((grade_level_2014==9 & retained_in_school ==1)|(grade_level_2014==9 & retained_in_school ==0)),
-                                     grade10= sum(grade_level_2013==10 & retained_in_school ==1)/sum((grade_level_2014==10 & retained_in_school ==1)|(grade_level_2014==10 & retained_in_school ==0)),
-                                     grade11= sum(grade_level_2013==11 & retained_in_school ==1)/sum((grade_level_2014==11 & retained_in_school ==1)|(grade_level_2014==11 & retained_in_school ==0)),
-                                     grade12= sum(grade_level_2013==12 & retained_in_school ==1)/sum((grade_level_2014==12 & retained_in_school ==1)|(grade_level_2014==12 & retained_in_school ==0))))
 
-#test
 
-test <- ddply(Merge_2013_2014,.(bn_2013),summarise,
-      gradePK= sum(Merge_2013_2014[which(Merge_2013_2014['grade_level_2013']==-1 & Merge_2013_2014['retained_in_school'] ==1),'include_in_school']))
 
-sum(Merge_2013_2014['grade_level_2013']==3 & Merge_2013_2014['retained_in_school'] ==1)
 
-sum(ifelse(Merge_2013_2014$grade_level_2013==-1 & Merge_2013_2014$retained_in_school ==1, 1, 0))
 
-nrow(c[a==2 & b==2, ])
-nrow(Merge_2013_2014[grade_level_2013==11 & retained_in_school ==1, ])
 
-class(Merge_2013_2014$grade_level_2013)
+
+
+# ###### Make a rention rate table of different grades, acroos different years
+# require(plyr)
+# grade_retain_2014 <- data.frame(ddply(Merge_2013_2014,.(bn_2013),summarise,
+#                                      gradePK= sum(grade_level_2013==-1 & retained_in_school ==1)/sum((grade_level_2014==-1 & retained_in_school ==1)|(grade_level_2014==-1 & retained_in_school ==0)),
+#                                      grade0= sum(grade_level_2013==0 & retained_in_school ==1)/sum((grade_level_2014==0 & retained_in_school ==1)|(grade_level_2014==0 & retained_in_school ==0)),
+#                                      grade1= sum(grade_level_2013==1 & retained_in_school ==1)/sum((grade_level_2014==1 & retained_in_school ==1)|(grade_level_2014==1 & retained_in_school ==0)),
+#                                      grade2= sum(grade_level_2013==2 & retained_in_school ==1)/sum((grade_level_2014==2 & retained_in_school ==1)|(grade_level_2014==2 & retained_in_school ==0)),
+#                                      grade3= sum(grade_level_2013==3 & retained_in_school ==1)/sum((grade_level_2014==3 & retained_in_school ==1)|(grade_level_2014==3 & retained_in_school ==0)),
+#                                      grade4= sum(grade_level_2013==4 & retained_in_school ==1)/sum((grade_level_2014==4 & retained_in_school ==1)|(grade_level_2014==4 & retained_in_school ==0)),
+#                                      grade5= sum(grade_level_2013==5 & retained_in_school ==1)/sum((grade_level_2014==5 & retained_in_school ==1)|(grade_level_2014==5 & retained_in_school ==0)),
+#                                      grade6= sum(grade_level_2013==6 & retained_in_school ==1)/sum((grade_level_2014==6 & retained_in_school ==1)|(grade_level_2014==6 & retained_in_school ==0)),
+#                                      grade7= sum(grade_level_2013==7 & retained_in_school ==1)/sum((grade_level_2014==7 & retained_in_school ==1)|(grade_level_2014==7 & retained_in_school ==0)),
+#                                      grade8= sum(grade_level_2013==8 & retained_in_school ==1)/sum((grade_level_2014==8 & retained_in_school ==1)|(grade_level_2014==8 & retained_in_school ==0)),
+#                                      grade9= sum(grade_level_2013==9 & retained_in_school ==1)/sum((grade_level_2014==9 & retained_in_school ==1)|(grade_level_2014==9 & retained_in_school ==0)),
+#                                      grade10= sum(grade_level_2013==10 & retained_in_school ==1)/sum((grade_level_2014==10 & retained_in_school ==1)|(grade_level_2014==10 & retained_in_school ==0)),
+#                                      grade11= sum(grade_level_2013==11 & retained_in_school ==1)/sum((grade_level_2014==11 & retained_in_school ==1)|(grade_level_2014==11 & retained_in_school ==0)),
+#                                      grade12= sum(grade_level_2013==12 & retained_in_school ==1)/sum((grade_level_2014==12 & retained_in_school ==1)|(grade_level_2014==12 & retained_in_school ==0))))
+# 
+# #test
+# 
+# test <- ddply(Merge_2013_2014,.(bn_2013),summarise,
+#       gradePK= sum(Merge_2013_2014[which(Merge_2013_2014['grade_level_2013']==-1 & Merge_2013_2014['retained_in_school'] ==1),'include_in_school']))
+# 
+# sum(Merge_2013_2014['grade_level_2013']==3 & Merge_2013_2014['retained_in_school'] ==1)
+# 
+# sum(ifelse(Merge_2013_2014$grade_level_2013==-1 & Merge_2013_2014$retained_in_school ==1, 1, 0))
+# 
+# nrow(c[a==2 & b==2, ])
+# nrow(Merge_2013_2014[grade_level_2013==11 & retained_in_school ==1, ])
+# 
+# class(Merge_2013_2014$grade_level_2013)
 
 
