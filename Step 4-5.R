@@ -1,0 +1,648 @@
+##### STEP 3: CATEGORIZE STUDENTS
+#Create dummies for retained_in_school, retained_in_district
+
+#retained_in_district
+#retained_in_school
+
+#2013_2014
+Merge_2013_2014$retained_in_district <- ifelse(Merge_2013_2014$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2013_2014$bn_2014),1,0))
+
+
+Merge_2013_2014$retained_in_school <- ifelse(Merge_2013_2014$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2013_2014$bn_2014),0,
+                                                    ifelse(Merge_2013_2014$bn_2013 == Merge_2013_2014$bn_2014,1,0)))
+#2012_2013
+Merge_2012_2013$retained_in_district <- ifelse(Merge_2012_2013$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2012_2013$bn_2013),1,0))
+
+
+Merge_2012_2013$retained_in_school <- ifelse(Merge_2012_2013$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2012_2013$bn_2013),0,
+                                                    ifelse(Merge_2012_2013$bn_2012 == Merge_2012_2013$bn_2013,1,0)))
+
+#2011_2012
+Merge_2011_2012$retained_in_district <- ifelse(Merge_2011_2012$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2011_2012$bn_2012),1,0))
+
+
+Merge_2011_2012$retained_in_school <- ifelse(Merge_2011_2012$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2011_2012$bn_2012),0,
+                                                    ifelse(Merge_2011_2012$bn_2011 == Merge_2011_2012$bn_2012,1,0)))
+
+#2010_2011
+Merge_2010_2011$retained_in_district <- ifelse(Merge_2010_2011$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2010_2011$bn_2011),1,0))
+
+
+Merge_2010_2011$retained_in_school <- ifelse(Merge_2010_2011$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2010_2011$bn_2011),0,
+                                                    ifelse(Merge_2010_2011$bn_2010 == Merge_2010_2011$bn_2011,1,0)))
+#2009_2010
+Merge_2009_2010$retained_in_district <- ifelse(Merge_2009_2010$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2009_2010$bn_2010),1,0))
+
+
+Merge_2009_2010$retained_in_school <- ifelse(Merge_2009_2010$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2009_2010$bn_2010),0,
+                                                    ifelse(Merge_2009_2010$bn_2009 == Merge_2009_2010$bn_2010,1,0)))
+#2008_2009
+Merge_2008_2009$retained_in_district <- ifelse(Merge_2008_2009$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2008_2009$bn_2009),1,0))
+
+
+Merge_2008_2009$retained_in_school <- ifelse(Merge_2008_2009$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2008_2009$bn_2009),0,
+                                                    ifelse(Merge_2008_2009$bn_2008 == Merge_2008_2009$bn_2009,1,0)))
+
+#2007_2008
+Merge_2007_2008$retained_in_district <- ifelse(Merge_2007_2008$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2007_2008$bn_2008),1,0))
+
+
+Merge_2007_2008$retained_in_school <- ifelse(Merge_2007_2008$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2007_2008$bn_2008),0,
+                                                    ifelse(Merge_2007_2008$bn_2007 == Merge_2007_2008$bn_2008,1,0)))
+#2006_2007
+Merge_2006_2007$retained_in_district <- ifelse(Merge_2006_2007$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2006_2007$bn_2007),1,0))
+
+
+Merge_2006_2007$retained_in_school <- ifelse(Merge_2006_2007$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2006_2007$bn_2007),0,
+                                                    ifelse(Merge_2006_2007$bn_2006 == Merge_2006_2007$bn_2007,1,0)))
+
+#2005_2006
+Merge_2005_2006$retained_in_district <- ifelse(Merge_2005_2006$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2005_2006$bn_2006),1,0))
+
+
+Merge_2005_2006$retained_in_school <- ifelse(Merge_2005_2006$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2005_2006$bn_2006),0,
+                                                    ifelse(Merge_2005_2006$bn_2005 == Merge_2005_2006$bn_2006,1,0)))
+#2004_2005
+Merge_2004_2005$retained_in_district <- ifelse(Merge_2004_2005$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2004_2005$bn_2005),1,0))
+
+
+Merge_2004_2005$retained_in_school <- ifelse(Merge_2004_2005$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2004_2005$bn_2005),0,
+                                                    ifelse(Merge_2004_2005$bn_2004 == Merge_2004_2005$bn_2005,1,0)))
+
+#2003_2004
+Merge_2003_2004$retained_in_district <- ifelse(Merge_2003_2004$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2003_2004$bn_2004),1,0))
+
+
+Merge_2003_2004$retained_in_school <- ifelse(Merge_2003_2004$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2003_2004$bn_2004),0,
+                                                    ifelse(Merge_2003_2004$bn_2003 == Merge_2003_2004$bn_2004,1,0)))
+
+#2002_2003
+Merge_2002_2003$retained_in_district <- ifelse(Merge_2002_2003$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2002_2003$bn_2003),1,0))
+
+
+Merge_2002_2003$retained_in_school <- ifelse(Merge_2002_2003$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2002_2003$bn_2003),0,
+                                                    ifelse(Merge_2002_2003$bn_2002 == Merge_2002_2003$bn_2003,1,0)))
+
+##### STEP 4 & 5: DECIDE ELIGIBILITY
+
+#reate Max for Grade Level 2013
+
+'*************not to be used*****************'
+grade_max_2013 <- data.frame(aggregate(cbind(Merge_2013_2014$grade_level_2013) ~ dbn3to6_2013, Merge_2013_2014, max))
+Merge_2013_2014$grademax_2013 <- grade_max_2013[match(Merge_2013_2014$dbn3to6_2013,grade_max_2013$dbn3to6_2013),'V1']
+'*************not to be used*****************'
+
+
+#first delete NAs in gradelevel (if with NA, the whole school return NA)
+'Merge_2013_2014_grade_full<-Merge_2013_2014[complete.cases(Merge_2013_2014[,10]),]' '???merge??????????????????gradelevel = 0K -> NA?????????'
+data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
+
+#Count frequency of each grade level to each school
+require(plyr)
+#2014
+grade_count_2014 <- data.frame(ddply(data_2014,.(bn_2014),summarise,
+                                     gradePK=sum(grade_level_2014==-1),
+                                     grade0=sum(grade_level_2014==0),
+                                     grade1=sum(grade_level_2014==1),
+                                     grade2=sum(grade_level_2014==2),
+                                     grade3=sum(grade_level_2014==3),
+                                     grade4=sum(grade_level_2014==4),
+                                     grade5=sum(grade_level_2014==5),
+                                     grade6=sum(grade_level_2014==6),
+                                     grade7=sum(grade_level_2014==7),
+                                     grade8=sum(grade_level_2014==8),
+                                     grade9=sum(grade_level_2014==9),
+                                     grade10=sum(grade_level_2014==10),
+                                     grade11=sum(grade_level_2014==11),
+                                     grade12=sum(grade_level_2014==12)))
+write.csv(grade_count_2014, file = '/Users/elmerleezy/Desktop/grade_count_2014.csv')
+
+#2013
+grade_count_2013 <- data.frame(ddply(data_2013,.(bn_2013),summarise,
+                                     gradePK=sum(grade_level_2013==-1),
+                                     grade0=sum(grade_level_2013==0),
+                                     grade1=sum(grade_level_2013==1),
+                                     grade2=sum(grade_level_2013==2),
+                                     grade3=sum(grade_level_2013==3),
+                                     grade4=sum(grade_level_2013==4),
+                                     grade5=sum(grade_level_2013==5),
+                                     grade6=sum(grade_level_2013==6),
+                                     grade7=sum(grade_level_2013==7),
+                                     grade8=sum(grade_level_2013==8),
+                                     grade9=sum(grade_level_2013==9),
+                                     grade10=sum(grade_level_2013==10),
+                                     grade11=sum(grade_level_2013==11),
+                                     grade12=sum(grade_level_2013==12)))
+write.csv(grade_count_2013, file = '/Users/elmerleezy/Desktop/grade_count_2013.csv')
+
+#2012
+grade_count_2012 <- data.frame(ddply(data_2012,.(bn_2012),summarise,
+                                     gradePK=sum(grade_level_2012==-1),
+                                     grade0=sum(grade_level_2012==0),
+                                     grade1=sum(grade_level_2012==1),
+                                     grade2=sum(grade_level_2012==2),
+                                     grade3=sum(grade_level_2012==3),
+                                     grade4=sum(grade_level_2012==4),
+                                     grade5=sum(grade_level_2012==5),
+                                     grade6=sum(grade_level_2012==6),
+                                     grade7=sum(grade_level_2012==7),
+                                     grade8=sum(grade_level_2012==8),
+                                     grade9=sum(grade_level_2012==9),
+                                     grade10=sum(grade_level_2012==10),
+                                     grade11=sum(grade_level_2012==11),
+                                     grade12=sum(grade_level_2012==12)))
+write.csv(grade_count_2012, file = '/Users/elmerleezy/Desktop/grade_count_2012.csv')
+
+#2011
+grade_count_2011 <- data.frame(ddply(data_2011,.(bn_2011),summarise,
+                                     gradeAD=sum(grade_level_2011==-2),
+                                     gradePK=sum(grade_level_2011==-1),
+                                     grade0=sum(grade_level_2011==0),
+                                     grade1=sum(grade_level_2011==1),
+                                     grade2=sum(grade_level_2011==2),
+                                     grade3=sum(grade_level_2011==3),
+                                     grade4=sum(grade_level_2011==4),
+                                     grade5=sum(grade_level_2011==5),
+                                     grade6=sum(grade_level_2011==6),
+                                     grade7=sum(grade_level_2011==7),
+                                     grade8=sum(grade_level_2011==8),
+                                     grade9=sum(grade_level_2011==9),
+                                     grade10=sum(grade_level_2011==10),
+                                     grade11=sum(grade_level_2011==11),
+                                     grade12=sum(grade_level_2011==12)))
+write.csv(grade_count_2011, file = '/Users/elmerleezy/Desktop/grade_count_2011.csv')
+
+#2010
+grade_count_2010 <- data.frame(ddply(data_2010_grade_full,.(bn_2010),summarise,
+                                     gradeIN=sum(grade_level_2010==-2),
+                                     gradePK=sum(grade_level_2010==-1),
+                                     grade0=sum(grade_level_2010==0),
+                                     grade1=sum(grade_level_2010==1),
+                                     grade2=sum(grade_level_2010==2),
+                                     grade3=sum(grade_level_2010==3),
+                                     grade4=sum(grade_level_2010==4),
+                                     grade5=sum(grade_level_2010==5),
+                                     grade6=sum(grade_level_2010==6),
+                                     grade7=sum(grade_level_2010==7),
+                                     grade8=sum(grade_level_2010==8),
+                                     grade9=sum(grade_level_2010==9),
+                                     grade10=sum(grade_level_2010==10),
+                                     grade11=sum(grade_level_2010==11),
+                                     grade12=sum(grade_level_2010==12)))
+write.csv(grade_count_2010, file = '/Users/elmerleezy/Desktop/grade_count_2010.csv')
+
+#2009
+grade_count_2009 <- data.frame(ddply(data_2009,.(bn_2009),summarise,
+                                     gradePK=sum(grade_level_2009==-1),
+                                     grade0=sum(grade_level_2009==0),
+                                     grade1=sum(grade_level_2009==1),
+                                     grade2=sum(grade_level_2009==2),
+                                     grade3=sum(grade_level_2009==3),
+                                     grade4=sum(grade_level_2009==4),
+                                     grade5=sum(grade_level_2009==5),
+                                     grade6=sum(grade_level_2009==6),
+                                     grade7=sum(grade_level_2009==7),
+                                     grade8=sum(grade_level_2009==8),
+                                     grade9=sum(grade_level_2009==9),
+                                     grade10=sum(grade_level_2009==10),
+                                     grade11=sum(grade_level_2009==11),
+                                     grade12=sum(grade_level_2009==12)))
+write.csv(grade_count_2009, file = '/Users/elmerleezy/Desktop/grade_count_2009.csv')
+
+#2008
+grade_count_2008 <- data.frame(ddply(data_2008,.(bn_2008),summarise,
+                                     gradePK=sum(grade_level_2008==-1),
+                                     grade0=sum(grade_level_2008==0),
+                                     grade1=sum(grade_level_2008==1),
+                                     grade2=sum(grade_level_2008==2),
+                                     grade3=sum(grade_level_2008==3),
+                                     grade4=sum(grade_level_2008==4),
+                                     grade5=sum(grade_level_2008==5),
+                                     grade6=sum(grade_level_2008==6),
+                                     grade7=sum(grade_level_2008==7),
+                                     grade8=sum(grade_level_2008==8),
+                                     grade9=sum(grade_level_2008==9),
+                                     grade10=sum(grade_level_2008==10),
+                                     grade11=sum(grade_level_2008==11),
+                                     grade12=sum(grade_level_2008==12)))
+write.csv(grade_count_2008, file = '/Users/elmerleezy/Desktop/grade_count_2008.csv')
+
+#2007
+grade_count_2007 <- data.frame(ddply(data_2007,.(bn_2007),summarise,
+                                     gradePK=sum(grade_level_2007==-1),
+                                     grade0=sum(grade_level_2007==0),
+                                     grade1=sum(grade_level_2007==1),
+                                     grade2=sum(grade_level_2007==2),
+                                     grade3=sum(grade_level_2007==3),
+                                     grade4=sum(grade_level_2007==4),
+                                     grade5=sum(grade_level_2007==5),
+                                     grade6=sum(grade_level_2007==6),
+                                     grade7=sum(grade_level_2007==7),
+                                     grade8=sum(grade_level_2007==8),
+                                     grade9=sum(grade_level_2007==9),
+                                     grade10=sum(grade_level_2007==10),
+                                     grade11=sum(grade_level_2007==11),
+                                     grade12=sum(grade_level_2007==12)))
+write.csv(grade_count_2007, file = '/Users/elmerleezy/Desktop/grade_count_2007.csv')
+
+#2006
+grade_count_2006 <- data.frame(ddply(data_2006,.(bn_2006),summarise,
+                                     gradePK=sum(grade_level_2006==-1),
+                                     grade0=sum(grade_level_2006==0),
+                                     grade1=sum(grade_level_2006==1),
+                                     grade2=sum(grade_level_2006==2),
+                                     grade3=sum(grade_level_2006==3),
+                                     grade4=sum(grade_level_2006==4),
+                                     grade5=sum(grade_level_2006==5),
+                                     grade6=sum(grade_level_2006==6),
+                                     grade7=sum(grade_level_2006==7),
+                                     grade8=sum(grade_level_2006==8),
+                                     grade9=sum(grade_level_2006==9),
+                                     grade10=sum(grade_level_2006==10),
+                                     grade11=sum(grade_level_2006==11),
+                                     grade12=sum(grade_level_2006==12)))
+write.csv(grade_count_2006, file = '/Users/elmerleezy/Desktop/grade_count_2006.csv')
+
+#2005
+grade_count_2005 <- data.frame(ddply(data_2005,.(bn_2005),summarise,
+                                     gradePK=sum(grade_level_2005==-1),
+                                     grade0=sum(grade_level_2005==0),
+                                     grade1=sum(grade_level_2005==1),
+                                     grade2=sum(grade_level_2005==2),
+                                     grade3=sum(grade_level_2005==3),
+                                     grade4=sum(grade_level_2005==4),
+                                     grade5=sum(grade_level_2005==5),
+                                     grade6=sum(grade_level_2005==6),
+                                     grade7=sum(grade_level_2005==7),
+                                     grade8=sum(grade_level_2005==8),
+                                     grade9=sum(grade_level_2005==9),
+                                     grade10=sum(grade_level_2005==10),
+                                     grade11=sum(grade_level_2005==11),
+                                     grade12=sum(grade_level_2005==12)))
+write.csv(grade_count_2005, file = '/Users/elmerleezy/Desktop/grade_count_2005.csv')
+
+#2004
+grade_count_2004 <- data.frame(ddply(data_2004,.(bn_2004),summarise,
+                                     gradePK=sum(grade_level_2004==-1),
+                                     grade0=sum(grade_level_2004==0),
+                                     grade1=sum(grade_level_2004==1),
+                                     grade2=sum(grade_level_2004==2),
+                                     grade3=sum(grade_level_2004==3),
+                                     grade4=sum(grade_level_2004==4),
+                                     grade5=sum(grade_level_2004==5),
+                                     grade6=sum(grade_level_2004==6),
+                                     grade7=sum(grade_level_2004==7),
+                                     grade8=sum(grade_level_2004==8),
+                                     grade9=sum(grade_level_2004==9),
+                                     grade10=sum(grade_level_2004==10),
+                                     grade11=sum(grade_level_2004==11),
+                                     grade12=sum(grade_level_2004==12)))
+write.csv(grade_count_2004, file = '/Users/elmerleezy/Desktop/grade_count_2004.csv')
+
+#2003
+grade_count_2003 <- data.frame(ddply(data_2003,.(bn_2003),summarise,
+                                     gradeIN=sum(grade_level_2003==-2),
+                                     gradePK=sum(grade_level_2003==-1),
+                                     grade0=sum(grade_level_2003==0),
+                                     grade1=sum(grade_level_2003==1),
+                                     grade2=sum(grade_level_2003==2),
+                                     grade3=sum(grade_level_2003==3),
+                                     grade4=sum(grade_level_2003==4),
+                                     grade5=sum(grade_level_2003==5),
+                                     grade6=sum(grade_level_2003==6),
+                                     grade7=sum(grade_level_2003==7),
+                                     grade8=sum(grade_level_2003==8),
+                                     grade9=sum(grade_level_2003==9),
+                                     grade10=sum(grade_level_2003==10),
+                                     grade11=sum(grade_level_2003==11),
+                                     grade12=sum(grade_level_2003==12)))
+write.csv(grade_count_2003, file = '/Users/elmerleezy/Desktop/grade_count_2003.csv')
+
+#2002
+grade_count_2002 <- data.frame(ddply(data_2002,.(bn_2002),summarise,
+                                     gradeIN=sum(grade_level_2002==-2),
+                                     gradePK=sum(grade_level_2002==-1),
+                                     grade0=sum(grade_level_2002==0),
+                                     grade1=sum(grade_level_2002==1),
+                                     grade2=sum(grade_level_2002==2),
+                                     grade3=sum(grade_level_2002==3),
+                                     grade4=sum(grade_level_2002==4),
+                                     grade5=sum(grade_level_2002==5),
+                                     grade6=sum(grade_level_2002==6),
+                                     grade7=sum(grade_level_2002==7),
+                                     grade8=sum(grade_level_2002==8),
+                                     grade9=sum(grade_level_2002==9),
+                                     grade10=sum(grade_level_2002==10),
+                                     grade11=sum(grade_level_2002==11),
+                                     grade12=sum(grade_level_2002==12)))
+write.csv(grade_count_2002, file = '/Users/elmerleezy/Desktop/grade_count_2002.csv')
+
+
+
+#convert first column to row names
+grade_count_2014 <- data.frame(grade_count_2014[,-1], row.names=grade_count_2014[,1])
+grade_count_2013 <- data.frame(grade_count_2013[,-1], row.names=grade_count_2013[,1])
+grade_count_2012 <- data.frame(grade_count_2012[,-1], row.names=grade_count_2012[,1])
+grade_count_2011 <- data.frame(grade_count_2011[,-1], row.names=grade_count_2011[,1])
+grade_count_2010 <- data.frame(grade_count_2010[,-1], row.names=grade_count_2010[,1])
+grade_count_2009 <- data.frame(grade_count_2009[,-1], row.names=grade_count_2009[,1])
+grade_count_2008 <- data.frame(grade_count_2008[,-1], row.names=grade_count_2008[,1])
+grade_count_2007 <- data.frame(grade_count_2007[,-1], row.names=grade_count_2007[,1])
+grade_count_2006 <- data.frame(grade_count_2006[,-1], row.names=grade_count_2006[,1])
+grade_count_2005 <- data.frame(grade_count_2005[,-1], row.names=grade_count_2005[,1])
+grade_count_2004 <- data.frame(grade_count_2004[,-1], row.names=grade_count_2004[,1])
+grade_count_2003 <- data.frame(grade_count_2003[,-1], row.names=grade_count_2003[,1])
+grade_count_2002 <- data.frame(grade_count_2002[,-1], row.names=grade_count_2002[,1])
+
+#count grade freq > 10
+#count max of grade freq
+#Combine together
+
+#2014
+grade_range_2014 <- data.frame(cbind(apply(grade_count_2014,1 ,function(x) which(x>10))))
+grade_range_2014_list <- apply(grade_count_2014,1 ,function(x) which(x>10))
+
+grade_range_2014_max <- lapply(grade_range_2014_list, function(x) x[which.max(abs(x))])
+grade_range_2014_max <- as.numeric(grade_range_2014_max) 
+grade_range_2014_max <- (grade_range_2014_max - 2)
+
+grade_range_2014$max <- grade_range_2014_max
+
+#2013
+grade_range_2013 <- data.frame(cbind(apply(grade_count_2013,1 ,function(x) which(x>10))))
+grade_range_2013_list <- apply(grade_count_2013,1 ,function(x) which(x>10)) 'create a list since for later steps'
+
+grade_range_2013_max <- lapply(grade_range_2013_list, function(x) x[which.max(abs(x))])
+grade_range_2013_max <- as.numeric(grade_range_2013_max) 'convert grade max as numeric for later use (to compare)'
+grade_range_2013_max <- (grade_range_2013_max - 2)
+
+grade_range_2013$max <- grade_range_2013_max
+
+#2012
+grade_range_2012 <- data.frame(cbind(apply(grade_count_2012,1 ,function(x) which(x>10))))
+grade_range_2012_list <- apply(grade_count_2012,1 ,function(x) which(x>10))
+
+grade_range_2012_max <- lapply(grade_range_2012_list, function(x) x[which.max(abs(x))])
+grade_range_2012_max <- as.numeric(grade_range_2012_max) 
+grade_range_2012_max <- (grade_range_2012_max - 2)
+
+grade_range_2012$max <- grade_range_2012_max
+
+#2011
+grade_range_2011 <- data.frame(cbind(apply(grade_count_2011,1 ,function(x) which(x>10))))
+grade_range_2011_list <- apply(grade_count_2011,1 ,function(x) which(x>10))
+
+grade_range_2011_max <- lapply(grade_range_2011_list, function(x) x[which.max(abs(x))])
+grade_range_2011_max <- as.numeric(grade_range_2011_max) 
+grade_range_2011_max <- (grade_range_2011_max - 3)
+
+grade_range_2011$max <- grade_range_2011_max
+
+#2010
+grade_range_2010 <- data.frame(cbind(apply(grade_count_2010,1 ,function(x) which(x>10))))
+grade_range_2010_list <- apply(grade_count_2010,1 ,function(x) which(x>10))
+
+grade_range_2010_max <- lapply(grade_range_2010_list, function(x) x[which.max(abs(x))])
+grade_range_2010_max <- as.numeric(grade_range_2010_max) 
+grade_range_2010_max <- (grade_range_2010_max - 3)
+
+grade_range_2010$max <- grade_range_2010_max
+
+#2009
+grade_range_2009 <- data.frame(cbind(apply(grade_count_2009,1 ,function(x) which(x>10))))
+grade_range_2009_list <- apply(grade_count_2009,1 ,function(x) which(x>10))
+
+grade_range_2009_max <- lapply(grade_range_2009_list, function(x) x[which.max(abs(x))])
+grade_range_2009_max <- as.numeric(grade_range_2009_max) 
+grade_range_2009_max <- (grade_range_2009_max - 2)
+
+grade_range_2009$max <- grade_range_2009_max
+
+#2008
+grade_range_2008 <- data.frame(cbind(apply(grade_count_2008,1 ,function(x) which(x>10))))
+grade_range_2008_list <- apply(grade_count_2008,1 ,function(x) which(x>10))
+
+grade_range_2008_max <- lapply(grade_range_2008_list, function(x) x[which.max(abs(x))])
+grade_range_2008_max <- as.numeric(grade_range_2008_max) 
+grade_range_2008_max <- (grade_range_2008_max - 2)
+
+grade_range_2008$max <- grade_range_2008_max
+
+#2007
+grade_range_2007 <- data.frame(cbind(apply(grade_count_2007,1 ,function(x) which(x>10))))
+grade_range_2007_list <- apply(grade_count_2007,1 ,function(x) which(x>10))
+
+grade_range_2007_max <- lapply(grade_range_2007_list, function(x) x[which.max(abs(x))])
+grade_range_2007_max <- as.numeric(grade_range_2007_max) 
+grade_range_2007_max <- (grade_range_2007_max - 2)
+
+grade_range_2007$max <- grade_range_2007_max
+
+#2006
+grade_range_2006 <- data.frame(cbind(apply(grade_count_2006,1 ,function(x) which(x>10))))
+grade_range_2006_list <- apply(grade_count_2006,1 ,function(x) which(x>10))
+
+grade_range_2006_max <- lapply(grade_range_2006_list, function(x) x[which.max(abs(x))])
+grade_range_2006_max <- as.numeric(grade_range_2006_max) 
+grade_range_2006_max <- (grade_range_2006_max - 2)
+
+grade_range_2006$max <- grade_range_2006_max
+
+#2005
+grade_range_2005 <- data.frame(cbind(apply(grade_count_2005,1 ,function(x) which(x>10))))
+grade_range_2005_list <- apply(grade_count_2005,1 ,function(x) which(x>10))
+
+grade_range_2005_max <- lapply(grade_range_2005_list, function(x) x[which.max(abs(x))])
+grade_range_2005_max <- as.numeric(grade_range_2005_max) 
+grade_range_2005_max <- (grade_range_2005_max - 2)
+
+grade_range_2005$max <- grade_range_2005_max
+
+#2004
+grade_range_2004 <- data.frame(cbind(apply(grade_count_2004,1 ,function(x) which(x>10))))
+grade_range_2004_list <- apply(grade_count_2004,1 ,function(x) which(x>10))
+
+grade_range_2004_max <- lapply(grade_range_2004_list, function(x) x[which.max(abs(x))])
+grade_range_2004_max <- as.numeric(grade_range_2004_max) 
+grade_range_2004_max <- (grade_range_2004_max - 2)
+
+grade_range_2004$max <- grade_range_2004_max
+
+#2003
+grade_range_2003 <- data.frame(cbind(apply(grade_count_2003,1 ,function(x) which(x>10))))
+grade_range_2003_list <- apply(grade_count_2003,1 ,function(x) which(x>10))
+
+grade_range_2003_max <- lapply(grade_range_2003_list, function(x) x[which.max(abs(x))])
+grade_range_2003_max <- as.numeric(grade_range_2003_max) 
+grade_range_2003_max <- (grade_range_2003_max - 3)
+
+grade_range_2003$max <- grade_range_2003_max
+
+#2002
+grade_range_2002 <- data.frame(cbind(apply(grade_count_2002,1 ,function(x) which(x>10))))
+grade_range_2002_list <- apply(grade_count_2002,1 ,function(x) which(x>10))
+
+grade_range_2002_max <- lapply(grade_range_2002_list, function(x) x[which.max(abs(x))])
+grade_range_2002_max <- as.numeric(grade_range_2002_max) 
+grade_range_2002_max <- (grade_range_2002_max - 3)
+
+grade_range_2002$max <- grade_range_2002_max
+
+#Insert first column as row names
+grade_range_2002$bn <- rownames(grade_range_2002)
+grade_range_2003$bn <- rownames(grade_range_2003)
+grade_range_2004$bn <- rownames(grade_range_2004)
+grade_range_2005$bn <- rownames(grade_range_2005)
+grade_range_2006$bn <- rownames(grade_range_2006)
+grade_range_2007$bn <- rownames(grade_range_2007)
+grade_range_2008$bn <- rownames(grade_range_2008)
+grade_range_2009$bn <- rownames(grade_range_2009)
+grade_range_2010$bn <- rownames(grade_range_2010)
+grade_range_2011$bn <- rownames(grade_range_2011)
+grade_range_2012$bn <- rownames(grade_range_2012)
+grade_range_2013$bn <- rownames(grade_range_2013)
+grade_range_2014$bn <- rownames(grade_range_2014)
+
+#Re-name grade_range columns & re-sequence & combine together
+
+#   can try something like: 
+# year <- 2012
+# year <- 2013
+# year <- 2014 and do the whole thing again
+
+grade_range_reorder <- function(grade_range,year){
+  grade_range <- grade_range[c(3,1,2)]
+  names(grade_range) <- c('bn','range','max')
+  names(grade_range)[names(grade_range) %in% c('range','max')] <- paste(names(grade_range)[names(grade_range) %in% c('range','max')],year,sep = "_")
+  grade_range
+}
+
+grade_range_2002 <- grade_range_reorder(grade_range_2002,2002)
+grade_range_2003 <- grade_range_reorder(grade_range_2003,2003)
+grade_range_2004 <- grade_range_reorder(grade_range_2004,2004)
+grade_range_2005 <- grade_range_reorder(grade_range_2005,2005)
+grade_range_2006 <- grade_range_reorder(grade_range_2006,2006)
+grade_range_2007 <- grade_range_reorder(grade_range_2007,2007)
+grade_range_2008 <- grade_range_reorder(grade_range_2008,2008)
+grade_range_2009 <- grade_range_reorder(grade_range_2009,2009)
+grade_range_2010 <- grade_range_reorder(grade_range_2010,2010)
+grade_range_2011 <- grade_range_reorder(grade_range_2011,2011)
+grade_range_2012 <- grade_range_reorder(grade_range_2012,2012)
+grade_range_2013 <- grade_range_reorder(grade_range_2013,2013)
+grade_range_2014 <- grade_range_reorder(grade_range_2014,2014)
+
+grade_range_all<-Reduce(function(x, y) merge(x, y, by='bn', all=TRUE), list(grade_range_2014,grade_range_2013,grade_range_2012,grade_range_2011,grade_range_2010,grade_range_2009,grade_range_2008,grade_range_2007,grade_range_2006,grade_range_2005,grade_range_2004,grade_range_2003,grade_range_2002)) 
+
+#print
+grade_range_all_char <- data.frame(lapply(grade_range_all, as.character), stringsAsFactors=FALSE)
+write.csv(grade_range_all_char, file = '/Users/elmerleezy/Desktop/grade_range_all.csv')
+
+'*************************  test  *****************************'
+matrix_2 <- data.frame(matrix(apply(matrix,1 ,function(x) which(x==1))))
+matrix_2_list<-apply(matrix,1 ,function(x) which(x==1))
+matrix_3 <- lapply(matrix_2_list, function(x) x[which.max(abs(x))])
+matrix_2$tg <- matrix_3
+
+matrix_4 <- data.frame(lapply(matrix_2, as.character), stringsAsFactors=FALSE)
+write.csv(matrix_4, file = '/Users/elmerleezy/Desktop/matrix_4.csv')
+'*************************test end *****************************'
+
+
+#Create Dummy for include_in_dist_calc & include_in_school_calc
+
+#include_in_dist_calc 
+Merge_2013_2014$include_in_dist_calc <- ifelse(Merge_2013_2014$grade_level_2013 < 12,1,0)  
+Merge_2012_2013$include_in_dist_calc <- ifelse(Merge_2012_2013$grade_level_2012 < 12,1,0)  
+Merge_2011_2012$include_in_dist_calc <- ifelse(Merge_2011_2012$grade_level_2011 < 12,1,0)  
+Merge_2010_2011$include_in_dist_calc <- ifelse(Merge_2010_2011$grade_level_2010 < 12,1,0)  
+Merge_2009_2010$include_in_dist_calc <- ifelse(Merge_2009_2010$grade_level_2009 < 12,1,0)
+Merge_2008_2009$include_in_dist_calc <- ifelse(Merge_2008_2009$grade_level_2008 < 12,1,0)
+Merge_2007_2008$include_in_dist_calc <- ifelse(Merge_2007_2008$grade_level_2007 < 12,1,0)
+Merge_2006_2007$include_in_dist_calc <- ifelse(Merge_2006_2007$grade_level_2006 < 12,1,0)
+Merge_2005_2006$include_in_dist_calc <- ifelse(Merge_2005_2006$grade_level_2005 < 12,1,0)
+Merge_2004_2005$include_in_dist_calc <- ifelse(Merge_2004_2005$grade_level_2004 < 12,1,0)
+Merge_2003_2004$include_in_dist_calc <- ifelse(Merge_2003_2004$grade_level_2003 < 12,1,0)
+Merge_2002_2003$include_in_dist_calc <- ifelse(Merge_2002_2003$grade_level_2002 < 12,1,0)
+
+
+#include_in_school_calc
+Merge_2013_2014$terminal_2013 <- grade_range_2014[match(Merge_2013_2014$bn_2013,row.names(grade_range_2014)),'max']
+Merge_2013_2014$include_in_school_calc <- ifelse(Merge_2013_2014$grade_level_2013 < Merge_2013_2014$terminal_2013,1,0)
+
+Merge_2012_2013$terminal_2012 <- grade_range_2013[match(Merge_2012_2013$bn_2012,row.names(grade_range_2013)),'max']
+Merge_2012_2013$include_in_school_calc <- ifelse(Merge_2012_2013$grade_level_2012 < Merge_2012_2013$terminal_2012,1,0)
+
+Merge_2011_2012$terminal_2011 <- grade_range_2012[match(Merge_2011_2012$bn_2011,row.names(grade_range_2012)),'max']
+Merge_2011_2012$include_in_school_calc <- ifelse(Merge_2011_2012$grade_level_2011 < Merge_2011_2012$terminal_2011,1,0)
+
+Merge_2010_2011$terminal_2010 <- grade_range_2011[match(Merge_2010_2011$bn_2010,row.names(grade_range_2011)),'max']
+Merge_2010_2011$include_in_school_calc <- ifelse(Merge_2010_2011$grade_level_2010 < Merge_2010_2011$terminal_2010,1,0)
+
+Merge_2009_2010$terminal_2009 <- grade_range_2010[match(Merge_2009_2010$bn_2009,row.names(grade_range_2010)),'max']
+Merge_2009_2010$include_in_school_calc <- ifelse(Merge_2009_2010$grade_level_2009 < Merge_2009_2010$terminal_2009,1,0)
+
+Merge_2008_2009$terminal_2008 <- grade_range_2009[match(Merge_2008_2009$bn_2008,row.names(grade_range_2009)),'max']
+Merge_2008_2009$include_in_school_calc <- ifelse(Merge_2008_2009$grade_level_2008 < Merge_2008_2009$terminal_2008,1,0)
+
+Merge_2007_2008$terminal_2007 <- grade_range_2008[match(Merge_2007_2008$bn_2007,row.names(grade_range_2008)),'max']
+Merge_2007_2008$include_in_school_calc <- ifelse(Merge_2007_2008$grade_level_2007 < Merge_2007_2008$terminal_2007,1,0)
+
+Merge_2006_2007$terminal_2006 <- grade_range_2007[match(Merge_2006_2007$bn_2006,row.names(grade_range_2007)),'max']
+Merge_2006_2007$include_in_school_calc <- ifelse(Merge_2006_2007$grade_level_2006 < Merge_2006_2007$terminal_2006,1,0)
+
+Merge_2005_2006$terminal_2005 <- grade_range_2006[match(Merge_2005_2006$bn_2005,row.names(grade_range_2006)),'max']
+Merge_2005_2006$include_in_school_calc <- ifelse(Merge_2005_2006$grade_level_2005 < Merge_2005_2006$terminal_2005,1,0)
+
+Merge_2004_2005$terminal_2004 <- grade_range_2005[match(Merge_2004_2005$bn_2004,row.names(grade_range_2005)),'max']
+Merge_2004_2005$include_in_school_calc <- ifelse(Merge_2004_2005$grade_level_2004 < Merge_2004_2005$terminal_2004,1,0)
+
+Merge_2003_2004$terminal_2003 <- grade_range_2004[match(Merge_2003_2004$bn_2003,row.names(grade_range_2004)),'max']
+Merge_2003_2004$include_in_school_calc <- ifelse(Merge_2003_2004$grade_level_2003 < Merge_2003_2004$terminal_2003,1,0)
+
+Merge_2002_2003$terminal_2002 <- grade_range_2003[match(Merge_2002_2003$bn_2002,row.names(grade_range_2003)),'max']
+Merge_2002_2003$include_in_school_calc <- ifelse(Merge_2002_2003$grade_level_2002 < Merge_2002_2003$terminal_2002,1,0)
+
+###### STEP 4.5 TERMINAL GRADE TABLE
+library(plyr)
+#Add Prefix to Each Data
+rownames(grade_count_2002) <- paste(rownames(grade_count_2002),2002, sep = "_")
+rownames(grade_count_2003) <- paste(rownames(grade_count_2003),2003, sep = "_")
+rownames(grade_count_2004) <- paste(rownames(grade_count_2004),2004, sep = "_")
+rownames(grade_count_2005) <- paste(rownames(grade_count_2005),2005, sep = "_")
+rownames(grade_count_2006) <- paste(rownames(grade_count_2006),2006, sep = "_")
+rownames(grade_count_2007) <- paste(rownames(grade_count_2007),2007, sep = "_")
+rownames(grade_count_2008) <- paste(rownames(grade_count_2008),2008, sep = "_")
+rownames(grade_count_2009) <- paste(rownames(grade_count_2009),2009, sep = "_")
+rownames(grade_count_2010) <- paste(rownames(grade_count_2010),2010, sep = "_")
+rownames(grade_count_2011) <- paste(rownames(grade_count_2011),2011, sep = "_")
+rownames(grade_count_2012) <- paste(rownames(grade_count_2012),2012, sep = "_")
+rownames(grade_count_2013) <- paste(rownames(grade_count_2013),2013, sep = "_")
+rownames(grade_count_2014) <- paste(rownames(grade_count_2014),2014, sep = "_")
+
+#Bind Data List
+RBIND <- function(datalist) {
+  require(plyr)
+  temp <- rbind.fill(datalist)
+  rownames(temp) <- unlist(lapply(datalist, row.names))
+  temp
+}'requirement: rowname must be different'
+
+grade_count_all <- RBIND(list(grade_count_2002,grade_count_2003,grade_count_2004,grade_count_2005,grade_count_2006,grade_count_2007,
+                              grade_count_2008,grade_count_2009,grade_count_2010,grade_count_2011,grade_count_2012,grade_count_2013,grade_count_2014))  
+
+grade_count_all <- grade_count_all[order(rownames(grade_count_all)),]
+write.csv(grade_count_all, file = '/Users/elmerleezy/Desktop/grade_count_all.csv')
+
+
