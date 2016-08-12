@@ -1,5 +1,9 @@
-###### STEP 6 & 7: CALCULATE RETENTION RATE & MAKE A SUMMARIZE TABLE
-#District wide retention rate:
+########################################
+## CALCULATE RETENTION RATE  ##
+## & MAKE A SUMMARIZE TABLE  ##
+########################################
+
+### District wide retention rate
 dist_wide_retention_2014 <- (sum( Merge_2013_2014$retained_in_district == 1, na.rm = TRUE))/(sum(Merge_2013_2014$include_in_dist_calc == 1, na.rm = TRUE))
 dist_wide_retention_2013 <- (sum( Merge_2012_2013$retained_in_district == 1, na.rm = TRUE))/(sum(Merge_2012_2013$include_in_dist_calc == 1, na.rm = TRUE))
 dist_wide_retention_2012 <- (sum( Merge_2011_2012$retained_in_district == 1, na.rm = TRUE))/(sum(Merge_2011_2012$include_in_dist_calc == 1, na.rm = TRUE))
@@ -12,15 +16,15 @@ dist_wide_retention_2006 <- (sum( Merge_2005_2006$retained_in_district == 1, na.
 dist_wide_retention_2005 <- (sum( Merge_2004_2005$retained_in_district == 1, na.rm = TRUE))/(sum(Merge_2004_2005$include_in_dist_calc == 1, na.rm = TRUE))
 dist_wide_retention_2004 <- (sum( Merge_2003_2004$retained_in_district == 1, na.rm = TRUE))/(sum(Merge_2003_2004$include_in_dist_calc == 1, na.rm = TRUE))
 dist_wide_retention_2003 <- (sum( Merge_2002_2003$retained_in_district == 1, na.rm = TRUE))/(sum(Merge_2002_2003$include_in_dist_calc == 1, na.rm = TRUE))
-
-dist_wide_retention_all <- data.frame(t(dist_wide_retention_2003,dist_wide_retention_2004,dist_wide_retention_2005,dist_wide_retention_2006,dist_wide_retention_2007,
+  # summarise
+dist_wide_retention_all <- data.frame(cbind(dist_wide_retention_2003,dist_wide_retention_2004,dist_wide_retention_2005,dist_wide_retention_2006,dist_wide_retention_2007,
                                         dist_wide_retention_2008,dist_wide_retention_2009,dist_wide_retention_2010,dist_wide_retention_2011,dist_wide_retention_2012,
                                         dist_wide_retention_2013,dist_wide_retention_2014))
 dist_wide_retention_all <- data.frame(t(dist_wide_retention_all))
 write.csv(dist_wide_retention_all, file = '/Users/elmerleezy/Desktop/dist_wide_retention_all.csv')
 
 ### School wide retention rate by school:
-# Aggregate and calculate rate
+  # Aggregate and calculate rate
 sch_wide_retention_2014 <- data.frame(aggregate(cbind(Merge_2013_2014$retained_in_school, Merge_2013_2014$include_in_school_calc) ~ bn_2013 + grade_level_2013, Merge_2013_2014,sum))
 sch_wide_retention_2013 <- data.frame(aggregate(cbind(Merge_2012_2013$retained_in_school, Merge_2012_2013$include_in_school_calc) ~ bn_2012 + grade_level_2012, Merge_2012_2013,sum))
 sch_wide_retention_2012 <- data.frame(aggregate(cbind(Merge_2011_2012$retained_in_school, Merge_2011_2012$include_in_school_calc) ~ bn_2011 + grade_level_2011, Merge_2011_2012,sum))
