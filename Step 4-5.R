@@ -13,6 +13,24 @@
 require(plyr)
   # delete NAs in gradelevel (if with NA, the whole school return NA)
 data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
+
+  # 2015
+  grade_count_2015 <- data.frame(ddply(data_2015,.(bn_2015),summarise,
+                                       gradeAD=sum(grade_level_2015==-2),
+                                       gradePK=sum(grade_level_2015==-1),
+                                       grade0=sum(grade_level_2015==0),
+                                       grade1=sum(grade_level_2015==1),
+                                       grade2=sum(grade_level_2015==2),
+                                       grade3=sum(grade_level_2015==3),
+                                       grade4=sum(grade_level_2015==4),
+                                       grade5=sum(grade_level_2015==5),
+                                       grade6=sum(grade_level_2015==6),
+                                       grade7=sum(grade_level_2015==7),
+                                       grade8=sum(grade_level_2015==8),
+                                       grade9=sum(grade_level_2015==9),
+                                       grade10=sum(grade_level_2015==10),
+                                       grade11=sum(grade_level_2015==11),
+                                       grade12=sum(grade_level_2015==12)))
   # 2014
   grade_count_2014 <- data.frame(ddply(data_2014,.(bn_2014),summarise,
                                        gradePK=sum(grade_level_2014==-1),
@@ -227,6 +245,7 @@ data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
                                        grade12=sum(grade_level_2002==12)))
   
   # convert first column to row names
+grade_count_2015 <- data.frame(grade_count_2015[,-1], row.names=grade_count_2015[,1])
 grade_count_2014 <- data.frame(grade_count_2014[,-1], row.names=grade_count_2014[,1])
 grade_count_2013 <- data.frame(grade_count_2013[,-1], row.names=grade_count_2013[,1])
 grade_count_2012 <- data.frame(grade_count_2012[,-1], row.names=grade_count_2012[,1])
@@ -290,6 +309,7 @@ grade_count_2002 <- data.frame(grade_count_2002[,-1], row.names=grade_count_2002
 
 ### Decide grade range by count grade freq > 10
   # count grade freq >10
+grade_range_2015 <- data.frame(cbind(apply(grade_count_2015,1 ,function(x) which(x>10))))
 grade_range_2014 <- data.frame(cbind(apply(grade_count_2014,1 ,function(x) which(x>10))))
 grade_range_2013 <- data.frame(cbind(apply(grade_count_2013,1 ,function(x) which(x>10))))
 grade_range_2012 <- data.frame(cbind(apply(grade_count_2012,1 ,function(x) which(x>10))))
@@ -304,6 +324,7 @@ grade_range_2004 <- data.frame(cbind(apply(grade_count_2004,1 ,function(x) which
 grade_range_2003 <- data.frame(cbind(apply(grade_count_2003,1 ,function(x) which(x>10))))
 grade_range_2002 <- data.frame(cbind(apply(grade_count_2002,1 ,function(x) which(x>10))))
   # convert first column names to row names
+names(grade_range_2015) <- c('grade_range_2015')
 names(grade_range_2014) <- c('grade_range_2014')
 names(grade_range_2013) <- c('grade_range_2013')
 names(grade_range_2012) <- c('grade_range_2012')
@@ -318,6 +339,7 @@ names(grade_range_2004) <- c('grade_range_2004')
 names(grade_range_2003) <- c('grade_range_2003')
 names(grade_range_2002) <- c('grade_range_2002')
   # minus 2 to get the right grades
+grade_range_2015$grade_range_2015<- lapply(grade_range_2015$grade_range_2015,function(x) x-2) 
 grade_range_2014$grade_range_2014<- lapply(grade_range_2014$grade_range_2014,function(x) x-2) 
 grade_range_2013$grade_range_2013<- lapply(grade_range_2013$grade_range_2013,function(x) x-2) 
 grade_range_2012$grade_range_2012<- lapply(grade_range_2012$grade_range_2012,function(x) x-2) 
@@ -332,10 +354,9 @@ grade_range_2004$grade_range_2004<- lapply(grade_range_2004$grade_range_2004,fun
 grade_range_2003$grade_range_2003<- lapply(grade_range_2003$grade_range_2003,function(x) x-2) 
 grade_range_2002$grade_range_2002<- lapply(grade_range_2002$grade_range_2002,function(x) x-2) 
 
-grade_range_2014$grade_range_2014<- sapply(grade_range_2014$grade_range_2014,function(x) as.numeric(x)) 
-
 ### Determine continuous grades for the previous year
   # minus 1 to determine continuous grade in the previous year
+grade_range_2015$continuous_2014<- lapply(grade_range_2015$grade_range_2015,function(x) x-1) 
 grade_range_2014$continuous_2013<- lapply(grade_range_2014$grade_range_2014,function(x) x-1) 
 grade_range_2013$continuous_2012<- lapply(grade_range_2013$grade_range_2013,function(x) x-1) 
 grade_range_2012$continuous_2011<- lapply(grade_range_2012$grade_range_2012,function(x) x-1) 
@@ -363,6 +384,8 @@ grade_range_2011$bn <- rownames(grade_range_2011)
 grade_range_2012$bn <- rownames(grade_range_2012)
 grade_range_2013$bn <- rownames(grade_range_2013)
 grade_range_2014$bn <- rownames(grade_range_2014)
+grade_range_2015$bn <- rownames(grade_range_2015)
+
   # re-order grade_range columns 
 grade_range_reorder <- function(grade_range){
   grade_range <- grade_range[c(3,1,2)]
@@ -381,6 +404,7 @@ grade_range_2011 <- grade_range_reorder(grade_range_2011)
 grade_range_2012 <- grade_range_reorder(grade_range_2012)
 grade_range_2013 <- grade_range_reorder(grade_range_2013)
 grade_range_2014 <- grade_range_reorder(grade_range_2014)
+grade_range_2015 <- grade_range_reorder(grade_range_2015)
 
 ### Create grade_range_all & print
 grade_range_all<-Reduce(function(x, y) merge(x, y, by='bn', all=TRUE), list(grade_range_2014,grade_range_2013,grade_range_2012,grade_range_2011,grade_range_2010,grade_range_2009,grade_range_2008,grade_range_2007,grade_range_2006,grade_range_2005,grade_range_2004,grade_range_2003,grade_range_2002)) 
@@ -400,6 +424,7 @@ write.csv(grade_range_all_char, file = '/Users/elmerleezy/Desktop/grade_range_al
 
 ### Create Dummy for include_in_dist_calc & include_in_school_calc
 # include_in_dist_calc 
+Merge_2014_2015$include_in_dist_calc <- ifelse(Merge_2014_2015$grade_level_2014 < 12,1,0)  
 Merge_2013_2014$include_in_dist_calc <- ifelse(Merge_2013_2014$grade_level_2013 < 12,1,0)  
 Merge_2012_2013$include_in_dist_calc <- ifelse(Merge_2012_2013$grade_level_2012 < 12,1,0)  
 Merge_2011_2012$include_in_dist_calc <- ifelse(Merge_2011_2012$grade_level_2011 < 12,1,0)  
@@ -414,6 +439,7 @@ Merge_2003_2004$include_in_dist_calc <- ifelse(Merge_2003_2004$grade_level_2003 
 Merge_2002_2003$include_in_dist_calc <- ifelse(Merge_2002_2003$grade_level_2002 < 12,1,0)
 # include_in_school_calc
   # first indicate continuous grades
+Merge_2014_2015$continuous_2014 <- grade_range_2015[match(Merge_2014_2015$bn_2014, grade_range_2015$bn),'continuous_2014']
 Merge_2013_2014$continuous_2013 <- grade_range_2014[match(Merge_2013_2014$bn_2013, grade_range_2014$bn),'continuous_2013']
 Merge_2012_2013$continuous_2012 <- grade_range_2013[match(Merge_2012_2013$bn_2012,row.names(grade_range_2013)),'continuous_2012']
 Merge_2011_2012$continuous_2011 <- grade_range_2012[match(Merge_2011_2012$bn_2011,row.names(grade_range_2012)),'continuous_2011']
@@ -428,6 +454,7 @@ Merge_2003_2004$continuous_2003 <- grade_range_2004[match(Merge_2003_2004$bn_200
 Merge_2002_2003$continuous_2002 <- grade_range_2003[match(Merge_2002_2003$bn_2002,row.names(grade_range_2003)),'continuous_2002']
   # then use if condition
 library(purrr)
+Merge_2014_2015$include_in_school_calc <- ifelse(map2_lgl(Merge_2014_2015$grade_level_2014,Merge_2014_2015$continuous_2014,is.element),1,ifelse(map_lgl(Merge_2014_2015$continuous_2014,is.null),NA,0))
 Merge_2013_2014$include_in_school_calc <- ifelse(map2_lgl(Merge_2013_2014$grade_level_2013,Merge_2013_2014$continuous_2013,is.element),1,ifelse(map_lgl(Merge_2013_2014$continuous_2013,is.null),NA,0))
 Merge_2012_2013$include_in_school_calc <- ifelse(map2_lgl(Merge_2012_2013$grade_level_2012,Merge_2012_2013$continuous_2012,is.element),1,ifelse(map_lgl(Merge_2012_2013$continuous_2012,is.null),NA,0))
 Merge_2011_2012$include_in_school_calc <- ifelse(map2_lgl(Merge_2011_2012$grade_level_2011,Merge_2011_2012$continuous_2011,is.element),1,ifelse(map_lgl(Merge_2011_2012$continuous_2011,is.null),NA,0))
@@ -447,6 +474,7 @@ Merge_2002_2003$include_in_school_calc <- ifelse(map2_lgl(Merge_2002_2003$grade_
 ### Create dummies for retained_in_school, retained_in_district
 
   # retained_in_district
+Merge_2014_2015$retained_in_district <- ifelse(Merge_2014_2015$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2014_2015$bn_2015),1,0))
 Merge_2013_2014$retained_in_district <- ifelse(Merge_2013_2014$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2013_2014$bn_2014),1,0))
 Merge_2012_2013$retained_in_district <- ifelse(Merge_2012_2013$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2012_2013$bn_2013),1,0))
 Merge_2011_2012$retained_in_district <- ifelse(Merge_2011_2012$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2011_2012$bn_2012),1,0))
@@ -460,6 +488,10 @@ Merge_2004_2005$retained_in_district <- ifelse(Merge_2004_2005$include_in_dist_c
 Merge_2003_2004$retained_in_district <- ifelse(Merge_2003_2004$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2003_2004$bn_2004),1,0))
 Merge_2002_2003$retained_in_district <- ifelse(Merge_2002_2003$include_in_dist_calc == 0,NA,ifelse(!is.na(Merge_2002_2003$bn_2003),1,0))
   # retained_in_school
+Merge_2014_2015$retained_in_school <- ifelse(Merge_2014_2015$include_in_school_calc == 0,NA,
+                                             ifelse(is.na(Merge_2014_2015$bn_2015),0,
+                                                    ifelse(Merge_2014_2015$bn_2014 == Merge_2014_2015$bn_2015,1,0)))
+
 Merge_2013_2014$retained_in_school <- ifelse(Merge_2013_2014$include_in_school_calc == 0,NA,
                                              ifelse(is.na(Merge_2013_2014$bn_2014),0,
                                                     ifelse(Merge_2013_2014$bn_2013 == Merge_2013_2014$bn_2014,1,0)))
