@@ -5,7 +5,6 @@
 library(readr)
 data_2002<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2002-03_Scrambled.csv')
 data_2003<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2003-04_Scrambled.csv')
-data_2003_2<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2003-04_Scrambled.csv')
 data_2004<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2004-05_Scrambled.csv')
 data_2005<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2005-06_Scrambled.csv')
 data_2006<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2006-07_Scrambled.csv')
@@ -14,14 +13,13 @@ data_2008<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Dat
 data_2009<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2009-10_Scrambled.csv')
 data_2010<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2010-11_Scrambled.csv')
 data_2011<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2011-12_Scrambled.csv')
-data_2012<-read.table('Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2012-13_Scram.txt', sep = '', header = T, na.string = '')
+data_2012<-read.txt('Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2012-13_Scram.txt', sep = '', header = T, na.string = '')
 data_2013<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2013-14_Scram.csv')
-data_2013_2<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2013-14_Scram.csv')
-
 data_2014<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2014-15_Scrambled.csv')
+data_2015<-read.csv('/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Raw/biog1031y2015-16_Scrambled.csv')
 
-#Blank or missing values
-#Convert all blank value to NA
+### Blank or missing values
+  # Convert all blank value to NA
 data_2002[data_2002==""] <- NA
 data_2003[data_2003==""] <- NA
 data_2004[data_2004==""] <- NA
@@ -36,7 +34,8 @@ data_2011[data_2011==""] <- NA
 data_2012[data_2012==""] <- NA
 data_2013[data_2013==""] <- NA
 data_2014[data_2014==""] <- NA
-#Summarise blank or missing values
+data_2015[data_2015==""] <- NA
+  # Summarise blank or missing values
 'Creating a table showing the number of missing values for each of the variables?'
 sapply(data_2002, function(x) sum(is.na(x)))
 sapply(data_2003, function(x) sum(is.na(x)))
@@ -51,14 +50,19 @@ sapply(data_2011, function(x) sum(is.na(x)))
 sapply(data_2012, function(x) sum(is.na(x)))
 sapply(data_2013, function(x) sum(is.na(x)))
 sapply(data_2014, function(x) sum(is.na(x)))
-
-missing_values1<-data.frame(sapply(data_2002, function(x) sum(is.na(x))),sapply(data_2003, function(x) sum(is.na(x))),sapply(data_2004, function(x) sum(is.na(x))),sapply(data_2005, function(x) sum(is.na(x))),sapply(data_2006, function(x) sum(is.na(x))),sapply(data_2007, function(x) sum(is.na(x))),sapply(data_2008, function(x) sum(is.na(x))),sapply(data_2010, function(x) sum(is.na(x))), sapply(data_2011,function(x) sum(is.na(x))))
-missing_values2<-data.frame(sapply(data_2013, function(x) sum(is.na(x))),sapply(data_2014, function(x) sum(is.na(x))))              
+sapply(data_2015, function(x) sum(is.na(x)))
+    # creating 4 tables, reason: datasets with different variables
+missing_values1<-data.frame(sapply(data_2002, function(x) sum(is.na(x))),sapply(data_2003, function(x) sum(is.na(x))),
+                            sapply(data_2004, function(x) sum(is.na(x))),sapply(data_2005, function(x) sum(is.na(x))),
+                            sapply(data_2006, function(x) sum(is.na(x))),sapply(data_2007, function(x) sum(is.na(x))),
+                            sapply(data_2008, function(x) sum(is.na(x))),sapply(data_2010, function(x) sum(is.na(x))), 
+                            sapply(data_2011,function(x) sum(is.na(x))))
+missing_values2<-data.frame(sapply(data_2013, function(x) sum(is.na(x))),sapply(data_2014, function(x) sum(is.na(x))),sapply(data_2015, function(x) sum(is.na(x))))              
 missing_values3<-data.frame(sapply(data_2012, function(x) sum(is.na(x))))
 missing_values4<-data.frame(sapply(data_2009, function(x) sum(is.na(x))))                           
 
 write.csv(missing_values1, file = '/Users/elmerleezy/Desktop/02-11.csv')
-write.csv(missing_values2, file = "/Users/elmerleezy/Desktop/13-14.csv")
+write.csv(missing_values2, file = "/Users/elmerleezy/Desktop/13-15.csv")
 write.csv(missing_values3, file = "/Users/elmerleezy/Desktop/12.csv")
 write.csv(missing_values4, file = "/Users/elmerleezy/Desktop/09.csv")
 
@@ -82,6 +86,8 @@ data_2011$student_id_scram[duplicated(data_2011$student_id_scram)]
 data_2012$student_id_scram[duplicated(data_2012$student_id_scram)]
 data_2013$student_id_scram[duplicated(data_2013$student_id_scram)]
 data_2014$student_id_scram[duplicated(data_2014$student_id_scram)]
+data_2015$student_id_scram[duplicated(data_2015$student_id_scram)]
+
 duplicate_studentid <- data.frame(data_2013$student_id_scram[duplicated(data_2013$student_id_scram)])
 'Find two student ids that are duplicated:
 data_2002: 641152411
@@ -154,7 +160,29 @@ data_2002$birth_mm_yyyy = paste(data_2002$birth_mo, data_2002$birth_yr,sep = '-'
 data_2002$birth_mo<-NULL
 data_2002$birth_yr<-NULL
 
+#Add 0s to student id 
+library(stringr)
+data_2014$student_id_scram<- str_pad(data_2014$student_id_scram, 9, pad = "0")
+data_2013$student_id_scram<- str_pad(data_2013$student_id_scram, 9, pad = "0")
+data_2012$student_id_scram<- str_pad(data_2012$student_id_scram, 9, pad = "0")
+data_2011$student_id_scram<- str_pad(data_2011$student_id_scram, 9, pad = "0")
+data_2010$student_id_scram<- str_pad(data_2010$student_id_scram, 9, pad = "0")
+data_2009$student_id_scram<- str_pad(data_2009$student_id_scram, 9, pad = "0")
+data_2008$student_id_scram<- str_pad(data_2008$student_id_scram, 9, pad = "0")
+data_2007$student_id_scram<- str_pad(data_2007$student_id_scram, 9, pad = "0")
+data_2006$student_id_scram<- str_pad(data_2006$student_id_scram, 9, pad = "0")
+data_2005$student_id_scram<- str_pad(data_2005$student_id_scram, 9, pad = "0")
+data_2004$student_id_scram<- str_pad(data_2004$student_id_scram, 9, pad = "0")
+data_2003$student_id_scram<- str_pad(data_2003$student_id_scram, 9, pad = "0")
+data_2002$student_id_scram<- str_pad(data_2002$student_id_scram, 9, pad = "0")
+
+
 #Unify Ethnicity Variable
+eth15 <- data.frame(table(data_2015$ethnicity)) 
+names(eth15) <- c('ethnicity','freq_2015')
+
+eth14 <- data.frame(table(data_2014$ethnicity)) 
+names(eth14) <- c('ethnicity','freq_2014')
 
 eth14 <- data.frame(table(data_2014$ethnicity)) 
 names(eth14) <- c('ethnicity','freq_2014')
@@ -197,7 +225,7 @@ names(eth02) <- c('ethnicity','freq_2002')
 eth_count<-Reduce(function(x, y) merge(x, y, by="ethnicity", all=TRUE), list(eth02,eth03,eth04,eth05,eth06,eth07,eth08,eth09,eth10,eth11,eth12,eth13,eth14))
 write.csv(eth_count,file = '/Users/elmerleezy/Desktop/eth_count.csv')
 
-#Unify variable names
+#Unify variable sequences
 data_2002 <- data_2002[c(23,1,25,2,6,24,3,4,5,8,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22)]
 data_2003 <- data_2003[c(23,1,25,2,6,24,3,4,5,8,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22)]
 data_2004 <- data_2004[c(23,1,25,2,6,24,3,4,5,8,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22)]
@@ -210,7 +238,41 @@ data_2010 <- data_2010[c(23,1,25,2,6,24,3,4,5,8,7,9,10,11,12,13,14,15,16,17,18,1
 data_2011 <- data_2011[c(23,1,25,2,6,24,3,4,5,8,7,9,10,11,12,13,14,15,16,17,18,19,20,21,22)]
 data_2012 <- data_2012[c(1,2,3,4,9,5,6,7,8,11,10,12)]
 data_2013 <- data_2013[c(1,2,3,4,9,5,6,7,8,11,10,12)]
+data_2014 <- data_2014[c(1,2,3,4,9,5,6,7,8,11,10,12)]
+data_2015 <- data_2015[c(1,2,3,4,9,5,6,7,8,11,10,12)]
 
+#Substring Dbn to Borough and School
+data_2002$dbn1to2 <- substr(data_2002$dbn,1,2)
+data_2003$dbn1to2 <- substr(data_2003$dbn,1,2)
+data_2004$dbn1to2 <- substr(data_2004$dbn,1,2)
+data_2005$dbn1to2 <- substr(data_2005$dbn,1,2)
+data_2006$dbn1to2 <- substr(data_2006$dbn,1,2)
+data_2007$dbn1to2 <- substr(data_2007$dbn,1,2)
+data_2008$dbn1to2 <- substr(data_2008$dbn,1,2)
+data_2009$dbn1to2 <- substr(data_2009$dbn,1,2)
+data_2010$dbn1to2 <- substr(data_2010$dbn,1,2)
+data_2011$dbn1to2 <- substr(data_2011$dbn,1,2)
+data_2012$dbn1to2 <- substr(data_2012$dbn,1,2)
+data_2013$dbn1to2 <- substr(data_2013$dbn,1,2)
+data_2014$dbn1to2 <- substr(data_2014$dbn,1,2)
+data_2015$dbn1to2 <- substr(data_2015$dbn,1,2)
+
+data_2002$dbn3to6 <- substr(data_2002$dbn,3,6)
+data_2003$dbn3to6 <- substr(data_2003$dbn,3,6)
+data_2004$dbn3to6 <- substr(data_2004$dbn,3,6)
+data_2005$dbn3to6 <- substr(data_2005$dbn,3,6)
+data_2006$dbn3to6 <- substr(data_2006$dbn,3,6)
+data_2007$dbn3to6 <- substr(data_2007$dbn,3,6)
+data_2008$dbn3to6 <- substr(data_2008$dbn,3,6)
+data_2009$dbn3to6 <- substr(data_2009$dbn,3,6)
+data_2010$dbn3to6 <- substr(data_2010$dbn,3,6)
+data_2011$dbn3to6 <- substr(data_2011$dbn,3,6)
+data_2012$dbn3to6 <- substr(data_2012$dbn,3,6)
+data_2013$dbn3to6 <- substr(data_2013$dbn,3,6)
+data_2014$dbn3to6 <- substr(data_2014$dbn,3,6)
+data_2015$dbn3to6 <- substr(data_2015$dbn,3,6)
+
+#Unify variable names
 names(data_2002) <- c('student_id_scram', "dbn_2002","birth_mm_yyyy","sex","ethnicity","lunch","admission_date","home_lang","pob_code","grade_level_2002","grade_code_2002","official_class",'lta_flg','create_dte','spec_ed_code','univ_pk_grade','school_admin_dbn','school_level','funding_cde','room_num','from_school_dbn','acd_flg','cons_teach','ctt_part_flg','periods_per_wk_setss',"d_2002","bn_2002")
 names(data_2003) <- c('student_id_scram', "dbn_2003","birth_mm_yyyy","sex","ethnicity","lunch","admission_date","home_lang","pob_code","grade_level_2003","grade_code_2003","official_class",'lta_flg','create_dte','spec_ed_code','univ_pk_grade','school_admin_dbn','school_level','funding_cde','room_num','from_school_dbn','acd_flg','cons_teach','ctt_part_flg','periods_per_wk_setss',"d_2003","bn_2003")
 names(data_2004) <- c('student_id_scram', "dbn_2004","birth_mm_yyyy","sex","ethnicity","lunch","admission_date","home_lang","pob_code","grade_level_2004","grade_code_2004","official_class",'lta_flg','create_dte','spec_ed_code','univ_pk_grade','school_admin_dbn','school_level','funding_cde','room_num','from_school_dbn','acd_flg','cons_teach','ctt_part_flg','periods_per_wk_setss',"d_2004","bn_2004")
@@ -224,75 +286,15 @@ names(data_2011) <- c('student_id_scram', "dbn_2011","birth_mm_yyyy","sex","ethn
 names(data_2012) <- c('student_id_scram', "dbn_2012","birth_mm_yyyy","sex","ethnicity","lunch","admission_date","home_lang","pob_code","grade_code_2012","grade_level_2012","official_class","d_2012","bn_2012")
 names(data_2013) <- c('student_id_scram', "dbn_2013","birth_mm_yyyy","sex","ethnicity","lunch","admission_date","home_lang","pob_code","grade_level_2013","grade_code_2013","official_class","d_2013","bn_2013")
 names(data_2014) <- c('student_id_scram', "dbn_2014","birth_mm_yyyy","sex","ethnicity","lunch","admission_date","home_lang","pob_code","grade_level_2014","grade_code_2014","official_class","d_2014","bn_2014")
+names(data_2015) <- c('student_id_scram', "dbn_2015","birth_mm_yyyy","sex","ethnicity","lunch","admission_date","home_lang","pob_code","grade_level_2015","grade_code_2015","official_class","d_2015","bn_2015")
 
-#Add 0s to student id of year 2013
-library(stringr)
-data_2014$student_id_scram<- str_pad(data_2014$student_id_scram, 9, pad = "0")
-data_2013$student_id_scram<- str_pad(data_2013$student_id_scram, 9, pad = "0")
-data_2012$student_id_scram<- str_pad(data_2012$student_id_scram, 9, pad = "0")
-data_2011$student_id_scram<- str_pad(data_2011$student_id_scram, 9, pad = "0")
-data_2010$student_id_scram<- str_pad(data_2010$student_id_scram, 9, pad = "0")
-data_2009$student_id_scram<- str_pad(data_2009$student_id_scram, 9, pad = "0")
-data_2008$student_id_scram<- str_pad(data_2008$student_id_scram, 9, pad = "0")
-data_2007$student_id_scram<- str_pad(data_2007$student_id_scram, 9, pad = "0")
-data_2006$student_id_scram<- str_pad(data_2006$student_id_scram, 9, pad = "0")
-data_2005$student_id_scram<- str_pad(data_2005$student_id_scram, 9, pad = "0")
-data_2004$student_id_scram<- str_pad(data_2004$student_id_scram, 9, pad = "0")
-data_2003$student_id_scram<- str_pad(data_2003$student_id_scram, 9, pad = "0")
-data_2002$student_id_scram<- str_pad(data_2002$student_id_scram, 9, pad = "0")
-
-#Substring Dbn to Borough and School
-data_2002$dbn1to2 <- substr(data_2002$dbn,1,2)
-data_2002$dbn3to6 <- substr(data_2002$dbn,3,6)
-
-data_2003$dbn1to2 <- substr(data_2003$dbn,1,2)
-data_2003$dbn3to6 <- substr(data_2003$dbn,3,6)
-
-data_2004$dbn1to2 <- substr(data_2004$dbn,1,2)
-data_2004$dbn3to6 <- substr(data_2004$dbn,3,6)
-
-data_2005$dbn1to2 <- substr(data_2005$dbn,1,2)
-data_2005$dbn3to6 <- substr(data_2005$dbn,3,6)
-
-data_2006$dbn1to2 <- substr(data_2006$dbn,1,2)
-data_2006$dbn3to6 <- substr(data_2006$dbn,3,6)
-
-data_2007$dbn1to2 <- substr(data_2007$dbn,1,2)
-data_2007$dbn3to6 <- substr(data_2007$dbn,3,6)
-
-data_2008$dbn1to2 <- substr(data_2008$dbn,1,2)
-data_2008$dbn3to6 <- substr(data_2008$dbn,3,6)
-
-data_2009$dbn1to2 <- substr(data_2009$dbn,1,2)
-data_2009$dbn3to6 <- substr(data_2009$dbn,3,6)
-
-data_2010$dbn1to2 <- substr(data_2010$dbn,1,2)
-data_2010$dbn3to6 <- substr(data_2010$dbn,3,6)
-
-data_2011$dbn1to2 <- substr(data_2011$dbn,1,2)
-data_2011$dbn3to6 <- substr(data_2011$dbn,3,6)
-
-data_2012$dbn1to2 <- substr(data_2012$dbn,1,2)
-data_2012$dbn3to6 <- substr(data_2012$dbn,3,6)
-
-data_2013$dbn1to2 <- substr(data_2013$dbn,1,2)
-data_2013$dbn3to6 <- substr(data_2013$dbn,3,6)
-
-data_2014$dbn1to2 <- substr(data_2014$dbn,1,2)
-data_2014$dbn3to6 <- substr(data_2014$dbn,3,6)
 
 
 #Recode Grade level
 library(plyr)
-#2013_2014
-Merge_2013_2014$grade_level_2013<- mapvalues(Merge_2013_2014$grade_level_2013, from = c("0K", "PK"), to = c(.5, 0))
-Merge_2013_2014$grade_level_2014<- mapvalues(Merge_2013_2014$grade_level_2014, from = c("0K", "PK"), to = c(.5, 0))
 
-Merge_2013_2014$grade_level_2013 <- as.numeric(Merge_2013_2014$grade_level_2013)
-Merge_2013_2014$grade_level_2013 <- mapvalues(Merge_2013_2014$grade_level_2013, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-1))
-
-Merge_2013_2014$grade_level_2014 <- as.numeric(Merge_2013_2014$grade_level_2014)
-Merge_2013_2014$grade_level_2014 <- mapvalues(Merge_2013_2014$grade_level_2014, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-1))
+data_2015$grade_level_2015 <- as.numeric(data_2015$grade_level_2015)
+data_2015$grade_level_2015 <- mapvalues(data_2015$grade_level_2015, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1)) # grade_level_2015 has AD
 
 data_2014$grade_level_2014 <- as.numeric(data_2014$grade_level_2014)
 data_2014$grade_level_2014 <- mapvalues(data_2014$grade_level_2014, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-1))
@@ -306,18 +308,12 @@ data_2012$grade_level_2012 <- data_2012$grade_level_2012_2
 data_2012$grade_level_2012_2 <- NULL
 
 data_2011$grade_level_2011_2 <- as.numeric(data_2011$grade_level_2011)
-data_2011$grade_level_2011_2 <- mapvalues(data_2011$grade_level_2011_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1))
-#??????
-data_2011$grade_level_2011 <- mapvalues(data_2011$grade_level_2011, from = c(1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1))
-
+data_2011$grade_level_2011_2 <- mapvalues(data_2011$grade_level_2011_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1)) # grade_level_2011 has AD
 data_2011$grade_level_2011 <- data_2011$grade_level_2011_2
 data_2011$grade_level_2011_2 <- NULL
 
 data_2010$grade_level_2010_2 <- as.numeric(data_2010$grade_level_2010)
-data_2010$grade_level_2010_2 <- mapvalues(data_2010$grade_level_2010_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16), to = c(NA,1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1))
-#??????
-data_2010$grade_level_2010 <- mapvalues(data_2010$grade_level_2010, from = c(NA,1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1), to = c(NA,1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1))
-
+data_2010$grade_level_2010_2 <- mapvalues(data_2010$grade_level_2010_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16), to = c(NA,1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1)) # grade_level_2010 has NA and IN
 data_2010$grade_level_2010 <- data_2010$grade_level_2010_2
 data_2010$grade_level_2010_2 <- NULL
 
@@ -345,23 +341,20 @@ data_2006$grade_level_2006_2 <- NULL
 
 data_2005$grade_level_2005_2 <- as.numeric(data_2005$grade_level_2005)
 data_2005$grade_level_2005 <- mapvalues(data_2005$grade_level_2005_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-1))
+data_2005$grade_level_2005_2 <- NULL
+
 
 data_2004$grade_level_2004_2 <- as.numeric(data_2004$grade_level_2004)
 data_2004$grade_level_2004 <- mapvalues(data_2004$grade_level_2004_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-1))
+data_2004$grade_level_2004_2 <- NULL
 
 data_2003$grade_level_2003_2 <- as.numeric(data_2003$grade_level_2003)
-data_2003$grade_level_2003_2 <- mapvalues(data_2003$grade_level_2003_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1))
-#??????
-data_2003$grade_level_2003 <- mapvalues(data_2003$grade_level_2003, from = c(1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1))
-
+data_2003$grade_level_2003_2 <- mapvalues(data_2003$grade_level_2003_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1))  # grade_level 2003 contains IN
 data_2003$grade_level_2003 <- data_2003$grade_level_2003_2
 data_2003$grade_level_2003_2 <- NULL
 
 data_2002$grade_level_2002_2 <- as.numeric(data_2002$grade_level_2002)
-data_2002$grade_level_2002_2 <- mapvalues(data_2002$grade_level_2002_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1))
-#??????
-data_2002$grade_level_2002 <- mapvalues(data_2002$grade_level_2002, from = c(1,2,3,4,5,6,7,8,9,0,10,11,12,0.5,-1), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1))
-
+data_2002$grade_level_2002_2 <- mapvalues(data_2002$grade_level_2002_2, from = c(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15), to = c(1,2,3,4,5,6,7,8,9,0,10,11,12,-2,-1)) # grade_level 2002 contains IN
 data_2002$grade_level_2002 <- data_2002$grade_level_2002_2
 data_2002$grade_level_2002_2 <- NULL
 
@@ -415,9 +408,13 @@ df<-data_2013$dbn1to2
 df<-as.integer(df)
 out_dbn_2013<-data.frame(data_2013[!((df >= 1 & df <= 32) | (df == 75) | ( df== 79) | (df == 84)),])
 
-df<-data_2014$dbn1to2
+df<-data_2014$d_2014
 df<-as.integer(df)
 out_dbn_2014<-data.frame(data_2014[!((df >= 1 & df <= 32) | (df == 75) | ( df== 79)| (df == 84)),])
+
+df<-data_2015$d_2015
+df<-as.integer(df)
+out_dbn_2015<-data.frame(data_2015[!((df >= 1 & df <= 32) | (df == 75) | ( df== 79)| (df == 84)),])
 
 #Detect student lta_flag not blank
 out_lta_flg_2002<- data_2002[!is.na(data_2002$lta_flg), ]
@@ -432,6 +429,7 @@ out_lta_flg_2010<- data_2010[!is.na(data_2010$lta_flg), ]
 out_lta_flg_2011<- data_2011[!is.na(data_2011$lta_flg), ]
 
 #Merge 2013 and 2014 Dataset
+Merge_2014_2015 <- merge(data_2014, data_2015, by="student_id_scram", all = TRUE)
 Merge_2013_2014 <- merge(data_2013, data_2014, by="student_id_scram", all = TRUE)
 Merge_2012_2013 <- merge(data_2012, data_2013, by="student_id_scram", all = TRUE)
 Merge_2011_2012 <- merge(data_2011, data_2012, by="student_id_scram", all = TRUE)
