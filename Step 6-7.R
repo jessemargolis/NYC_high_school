@@ -22,10 +22,12 @@ dist_wide_retention_all <- data.frame(cbind(dist_wide_retention_2003,dist_wide_r
                                         dist_wide_retention_2008,dist_wide_retention_2009,dist_wide_retention_2010,dist_wide_retention_2011,dist_wide_retention_2012,
                                         dist_wide_retention_2013,dist_wide_retention_2014,dist_wide_retention_2015))
 dist_wide_retention_all <- data.frame(t(dist_wide_retention_all))
+names(dist_wide_retention_all) <- c('retention_rate')
+dist_wide_retention_all$year <- c('2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015' ) 
 write.csv(dist_wide_retention_all, file = '/Users/elmerleezy/Desktop/dist_wide_retention_all.csv')
 
-### District wide retention rate
-
+### District wide retention rate by grade
+  #Aggregate and calculate rate
 dist_wide_retention_2015 <- data.frame(aggregate(cbind(Merge_2014_2015$retained_in_district, Merge_2014_2015$include_in_dist_calc) ~  grade_level_2014, Merge_2014_2015,sum))
 dist_wide_retention_2014 <- data.frame(aggregate(cbind(Merge_2013_2014$retained_in_district, Merge_2013_2014$include_in_dist_calc) ~  grade_level_2013, Merge_2013_2014,sum))
 dist_wide_retention_2013 <- data.frame(aggregate(cbind(Merge_2012_2013$retained_in_district, Merge_2012_2013$include_in_dist_calc) ~  grade_level_2012, Merge_2012_2013,sum))
@@ -68,6 +70,7 @@ dist_wide_retention_2003$rate <- (dist_wide_retention_2003$V1)/(dist_wide_retent
   dist_wide_retention_2005 <- dist_wide_retention_2005[c(1,3,2,4)]
   dist_wide_retention_2004 <- dist_wide_retention_2004[c(1,3,2,4)]
   dist_wide_retention_2003 <- dist_wide_retention_2003[c(1,3,2,4)]
+
   # rename
   names(dist_wide_retention_2003) <- c('grade_level','include_2003','retained_2003','rate_2003')
   names(dist_wide_retention_2004) <- c('grade_level','include_2004','retained_2004','rate_2004')
@@ -83,11 +86,13 @@ dist_wide_retention_2003$rate <- (dist_wide_retention_2003$V1)/(dist_wide_retent
   names(dist_wide_retention_2014) <- c('grade_level','include_2014','retained_2014','rate_2014')
   names(dist_wide_retention_2015) <- c('grade_level','include_2015','retained_2015','rate_2015')
   
-  dist_wide_retention_all<-Reduce(function(x, y) merge(x, y, by=c('grade_level'), all=TRUE), list(dist_wide_retention_2003,dist_wide_retention_2004,dist_wide_retention_2005,dist_wide_retention_2006,dist_wide_retention_2007,
-                                                                                                  dist_wide_retention_2008,dist_wide_retention_2009,dist_wide_retention_2010,dist_wide_retention_2011,dist_wide_retention_2012,
+  dist_wide_retention_all_grade<-Reduce(function(x, y) merge(x, y, by=c('grade_level'), all=TRUE), list(dist_wide_retention_2003,dist_wide_retention_2004,dist_wide_retention_2005,dist_wide_retention_2006,dist_wide_retention_2007,
+                                                                                               dist_wide_retention_2008,dist_wide_retention_2009,dist_wide_retention_2010,dist_wide_retention_2011,dist_wide_retention_2012,
                                                                                                   dist_wide_retention_2013,dist_wide_retention_2014,dist_wide_retention_2015))
   
-### School wide retention rate by school:
+  write.csv(dist_wide_retention_all, file = '/Users/elmerleezy/Desktop/dist_wide_retention_all.csv')
+  
+### School wide retention rate by school and grade:
   # Aggregate and calculate rate
 sch_wide_retention_2015 <- data.frame(aggregate(cbind(Merge_2014_2015$retained_in_school, Merge_2014_2015$include_in_school_calc) ~ bn_2014 + grade_level_2014, Merge_2014_2015,sum))
 sch_wide_retention_2014 <- data.frame(aggregate(cbind(Merge_2013_2014$retained_in_school, Merge_2013_2014$include_in_school_calc) ~ bn_2013 + grade_level_2013, Merge_2013_2014,sum))
@@ -117,7 +122,7 @@ sch_wide_retention_2005$rate <- (sch_wide_retention_2005$V1)/(sch_wide_retention
 sch_wide_retention_2004$rate <- (sch_wide_retention_2004$V1)/(sch_wide_retention_2004$V2)
 sch_wide_retention_2003$rate <- (sch_wide_retention_2003$V1)/(sch_wide_retention_2003$V2)
 
-# Reorder and re-name
+  # Reorder and re-name
 sch_wide_retention_2015 <- sch_wide_retention_2015[c(1,2,4,3,5)]
 sch_wide_retention_2014 <- sch_wide_retention_2014[c(1,2,4,3,5)]
 sch_wide_retention_2013 <- sch_wide_retention_2013[c(1,2,4,3,5)]
@@ -146,13 +151,7 @@ names(sch_wide_retention_2013) <- c('bn','grade_level','include_2013','retained_
 names(sch_wide_retention_2014) <- c('bn','grade_level','include_2014','retained_2014','rate_2014')
 names(sch_wide_retention_2015) <- c('bn','grade_level','include_2015','retained_2015','rate_2015')
 
-
-######################################
-##     CREATE THE SUMMARY TABLE  ##
-######################################
-
-### Merge Scholl Retention Rate to make a different school retention rate table
-
+# Create a summary table
 sch_wide_retention_all<-Reduce(function(x, y) merge(x, y, by=c('bn','grade_level'), all=TRUE), list(sch_wide_retention_2003,sch_wide_retention_2004,sch_wide_retention_2005,sch_wide_retention_2006,sch_wide_retention_2007,
                                                                                    sch_wide_retention_2008,sch_wide_retention_2009,sch_wide_retention_2010,sch_wide_retention_2011,sch_wide_retention_2012,
                                                                                    sch_wide_retention_2013,sch_wide_retention_2014,sch_wide_retention_2015))

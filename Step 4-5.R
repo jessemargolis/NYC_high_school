@@ -3,7 +3,7 @@
 ## grade_count, include_dis/sch ##
 ########################################
 
-# #reate Max for Grade Level 2013
+# Create Max for Grade Level 2013
 # '*************not to be used*****************'
 # grade_max_2013 <- data.frame(aggregate(cbind(Merge_2013_2014$grade_level_2013) ~ dbn3to6_2013, Merge_2013_2014, max))
 # Merge_2013_2014$grademax_2013 <- grade_max_2013[match(Merge_2013_2014$dbn3to6_2013,grade_max_2013$dbn3to6_2013),'V1']
@@ -11,12 +11,15 @@
 
 ### Count frequency of each grade level to each school
 require(plyr)
-  # delete NAs in gradelevel (if with NA, the whole school return NA)
-data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
+  # Delete NAs in gradelevel (if with NA, the whole school return NA)
+data_2003 <- data_2003[!is.na(data_2003$grade_level_2003), ]
+data_2004 <- data_2004[!is.na(data_2004$grade_level_2004), ]
+data_2005 <- data_2005[!is.na(data_2005$grade_level_2005), ]
+data_2006 <- data_2006[!is.na(data_2006$grade_level_2006), ]
+data_2011 <- data_2011[!is.na(data_2011$grade_level_2011), ]
 
   # 2015
   grade_count_2015 <- data.frame(ddply(data_2015,.(bn_2015),summarise,
-                                       gradeAD=sum(grade_level_2015==-2),
                                        gradePK=sum(grade_level_2015==-1),
                                        grade0=sum(grade_level_2015==0),
                                        grade1=sum(grade_level_2015==1),
@@ -81,7 +84,6 @@ data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
                                        grade12=sum(grade_level_2012==12)))
   # 2011
   grade_count_2011 <- data.frame(ddply(data_2011,.(bn_2011),summarise,
-                                       gradeAD=sum(grade_level_2011==-2),
                                        gradePK=sum(grade_level_2011==-1),
                                        grade0=sum(grade_level_2011==0),
                                        grade1=sum(grade_level_2011==1),
@@ -97,8 +99,7 @@ data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
                                        grade11=sum(grade_level_2011==11),
                                        grade12=sum(grade_level_2011==12)))
   # 2010
-  grade_count_2010 <- data.frame(ddply(data_2010_grade_full,.(bn_2010),summarise,
-                                       gradeIN=sum(grade_level_2010==-2),
+  grade_count_2010 <- data.frame(ddply(data_2010,.(bn_2010),summarise,
                                        gradePK=sum(grade_level_2010==-1),
                                        grade0=sum(grade_level_2010==0),
                                        grade1=sum(grade_level_2010==1),
@@ -211,7 +212,6 @@ data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
                                        grade12=sum(grade_level_2004==12)))
   # 2003
   grade_count_2003 <- data.frame(ddply(data_2003,.(bn_2003),summarise,
-                                       gradeIN=sum(grade_level_2003==-2),
                                        gradePK=sum(grade_level_2003==-1),
                                        grade0=sum(grade_level_2003==0),
                                        grade1=sum(grade_level_2003==1),
@@ -228,7 +228,7 @@ data_2010_grade_full<-data_2010[complete.cases(data_2010[,10]),]
                                        grade12=sum(grade_level_2003==12)))
   # 2002
   grade_count_2002 <- data.frame(ddply(data_2002,.(bn_2002),summarise,
-                                       gradeIN=sum(grade_level_2002==-2),
+
                                        gradePK=sum(grade_level_2002==-1),
                                        grade0=sum(grade_level_2002==0),
                                        grade1=sum(grade_level_2002==1),
@@ -441,17 +441,17 @@ Merge_2002_2003$include_in_dist_calc <- ifelse(Merge_2002_2003$grade_level_2002 
   # first indicate continuous grades
 Merge_2014_2015$continuous_2014 <- grade_range_2015[match(Merge_2014_2015$bn_2014, grade_range_2015$bn),'continuous_2014']
 Merge_2013_2014$continuous_2013 <- grade_range_2014[match(Merge_2013_2014$bn_2013, grade_range_2014$bn),'continuous_2013']
-Merge_2012_2013$continuous_2012 <- grade_range_2013[match(Merge_2012_2013$bn_2012,row.names(grade_range_2013)),'continuous_2012']
-Merge_2011_2012$continuous_2011 <- grade_range_2012[match(Merge_2011_2012$bn_2011,row.names(grade_range_2012)),'continuous_2011']
-Merge_2010_2011$continuous_2010 <- grade_range_2011[match(Merge_2010_2011$bn_2010,row.names(grade_range_2011)),'continuous_2010']
-Merge_2009_2010$continuous_2009 <- grade_range_2010[match(Merge_2009_2010$bn_2009,row.names(grade_range_2010)),'continuous_2009']
-Merge_2008_2009$continuous_2008 <- grade_range_2009[match(Merge_2008_2009$bn_2008,row.names(grade_range_2009)),'continuous_2008']
-Merge_2007_2008$continuous_2007 <- grade_range_2008[match(Merge_2007_2008$bn_2007,row.names(grade_range_2008)),'continuous_2007']
-Merge_2006_2007$continuous_2006 <- grade_range_2007[match(Merge_2006_2007$bn_2006,row.names(grade_range_2007)),'continuous_2006']
-Merge_2005_2006$continuous_2005 <- grade_range_2006[match(Merge_2005_2006$bn_2005,row.names(grade_range_2006)),'continuous_2005']
-Merge_2004_2005$continuous_2004 <- grade_range_2005[match(Merge_2004_2005$bn_2004,row.names(grade_range_2005)),'continuous_2004']
-Merge_2003_2004$continuous_2003 <- grade_range_2004[match(Merge_2003_2004$bn_2003,row.names(grade_range_2004)),'continuous_2003']
-Merge_2002_2003$continuous_2002 <- grade_range_2003[match(Merge_2002_2003$bn_2002,row.names(grade_range_2003)),'continuous_2002']
+Merge_2012_2013$continuous_2012 <- grade_range_2013[match(Merge_2012_2013$bn_2012, grade_range_2013$bn),'continuous_2012']
+Merge_2011_2012$continuous_2011 <- grade_range_2012[match(Merge_2011_2012$bn_2011, grade_range_2012$bn),'continuous_2011']
+Merge_2010_2011$continuous_2010 <- grade_range_2011[match(Merge_2010_2011$bn_2010, grade_range_2011$bn),'continuous_2010']
+Merge_2009_2010$continuous_2009 <- grade_range_2010[match(Merge_2009_2010$bn_2009, grade_range_2010$bn),'continuous_2009']
+Merge_2008_2009$continuous_2008 <- grade_range_2009[match(Merge_2008_2009$bn_2008, grade_range_2009$bn),'continuous_2008']
+Merge_2007_2008$continuous_2007 <- grade_range_2008[match(Merge_2007_2008$bn_2007, grade_range_2008$bn),'continuous_2007']
+Merge_2006_2007$continuous_2006 <- grade_range_2007[match(Merge_2006_2007$bn_2006, grade_range_2007$bn),'continuous_2006']
+Merge_2005_2006$continuous_2005 <- grade_range_2006[match(Merge_2005_2006$bn_2005, grade_range_2006$bn),'continuous_2005']
+Merge_2004_2005$continuous_2004 <- grade_range_2005[match(Merge_2004_2005$bn_2004, grade_range_2005$bn),'continuous_2004']
+Merge_2003_2004$continuous_2003 <- grade_range_2004[match(Merge_2003_2004$bn_2003, grade_range_2004$bn),'continuous_2003']
+Merge_2002_2003$continuous_2002 <- grade_range_2003[match(Merge_2002_2003$bn_2002, grade_range_2003$bn),'continuous_2002']
   # then use if condition
 library(purrr)
 Merge_2014_2015$include_in_school_calc <- ifelse(map2_lgl(Merge_2014_2015$grade_level_2014,Merge_2014_2015$continuous_2014,is.element),1,ifelse(map_lgl(Merge_2014_2015$continuous_2014,is.null),NA,0))
