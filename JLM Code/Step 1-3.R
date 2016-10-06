@@ -125,23 +125,23 @@ eth13 <- data.frame(table(data_2013$ethnicity))
 eth14 <- data.frame(table(data_2014$ethnicity)) 
 eth15 <- data.frame(table(data_2015$ethnicity)) 
 
-names(eth15) <- c('ethnicity','freq_2015')
-names(eth14) <- c('ethnicity','freq_2014')
-names(eth13) <- c('ethnicity','freq_2013')
-names(eth12) <- c('ethnicity','freq_2012')
-names(eth11) <- c('ethnicity','freq_2011')
-names(eth10) <- c('ethnicity','freq_2010')
-names(eth09) <- c('ethnicity','freq_2009')
-names(eth08) <- c('ethnicity','freq_2008')
-names(eth07) <- c('ethnicity','freq_2007')
-names(eth06) <- c('ethnicity','freq_2006')
-names(eth05) <- c('ethnicity','freq_2005')
-names(eth04) <- c('ethnicity','freq_2004')
-names(eth03) <- c('ethnicity','freq_2003')
 names(eth02) <- c('ethnicity','freq_2002')
+names(eth03) <- c('ethnicity','freq_2003')
+names(eth04) <- c('ethnicity','freq_2004')
+names(eth05) <- c('ethnicity','freq_2005')
+names(eth06) <- c('ethnicity','freq_2006')
+names(eth07) <- c('ethnicity','freq_2007')
+names(eth08) <- c('ethnicity','freq_2008')
+names(eth09) <- c('ethnicity','freq_2009')
+names(eth10) <- c('ethnicity','freq_2010')
+names(eth11) <- c('ethnicity','freq_2011')
+names(eth12) <- c('ethnicity','freq_2012')
+names(eth13) <- c('ethnicity','freq_2013')
+names(eth14) <- c('ethnicity','freq_2014')
+names(eth15) <- c('ethnicity','freq_2015')
 
 count_eth<-Reduce(function(x, y) merge(x, y, by="ethnicity", all=TRUE), list(eth02,eth03,eth04,eth05,eth06,eth07,eth08,eth09,eth10,eth11,eth12,eth13,eth14,eth15))
-
+rm(eth02, eth03, eth04, eth05, eth06, eth07, eth08, eth09, eth10, eth11, eth12, eth13, eth14, eth15)
 
 # Substring Dbn to Borough and School
 data_2002$d_2002 <- substr(data_2002$dbn,1,2)
@@ -239,11 +239,13 @@ count_grade<-Reduce(function(x, y) merge(x, y, by="grade", all=TRUE),
 		grade_level_2015_t
 		))
 
+rm(grade_level_2002_t, grade_level_2003_t, grade_level_2004_t, grade_level_2005_t, grade_level_2006_t, grade_level_2007_t, grade_level_2008_t, grade_level_2009_t, grade_level_2010_t, grade_level_2011_t, grade_level_2012_t, grade_level_2013_t, grade_level_2014_t, grade_level_2015_t)
+
 # Delete AD and IN
 data_2002 <- data_2002[!(data_2002$grade_level_2002 == "IN"), ]
 data_2003 <- data_2003[!(data_2003$grade_level_2003 == "IN"), ]
 data_2010 <- data_2010[!(data_2010$grade_level_2010 == "IN"), ]
-data_2011 <- data_2011[!(data_2011$grade_level_2011 == "AD"), ]
+data_2011 <- dplyr::filter(data_2011,!grade_level_2011 == "AD")
 data_2015 <- data_2015[!(data_2015$grade_level_2015 == "AD"), ]
 
 # Recode 0K and PK
@@ -278,20 +280,20 @@ data_2014$grade_level_2014[which(data_2014$grade_level_2014 == 'PK' )] <- -1
 data_2015$grade_level_2015[which(data_2015$grade_level_2015 == 'PK' )] <- -1
 
 # convert to numeric
-data_2015$grade_level_2015 <- as.numeric(data_2015$grade_level_2015)
-data_2014$grade_level_2014 <- as.numeric(data_2014$grade_level_2014)
-data_2013$grade_level_2013 <- as.numeric(data_2013$grade_level_2013)
-data_2012$grade_level_2012 <- as.numeric(data_2012$grade_level_2012)
-data_2011$grade_level_2011 <- as.numeric(data_2011$grade_level_2011)
-data_2010$grade_level_2010 <- as.numeric(data_2010$grade_level_2010)
-data_2009$grade_level_2009 <- as.numeric(data_2009$grade_level_2009)
-data_2008$grade_level_2008 <- as.numeric(data_2008$grade_level_2008)
-data_2007$grade_level_2007 <- as.numeric(data_2007$grade_level_2007)
-data_2006$grade_level_2006 <- as.numeric(data_2006$grade_level_2006)
-data_2005$grade_level_2005 <- as.numeric(data_2005$grade_level_2005)
-data_2004$grade_level_2004 <- as.numeric(data_2004$grade_level_2004)
-data_2003$grade_level_2003 <- as.numeric(data_2003$grade_level_2003)
 data_2002$grade_level_2002 <- as.numeric(data_2002$grade_level_2002)
+data_2003$grade_level_2003 <- as.numeric(data_2003$grade_level_2003)
+data_2004$grade_level_2004 <- as.numeric(data_2004$grade_level_2004)
+data_2005$grade_level_2005 <- as.numeric(data_2005$grade_level_2005)
+data_2006$grade_level_2006 <- as.numeric(data_2006$grade_level_2006)
+data_2007$grade_level_2007 <- as.numeric(data_2007$grade_level_2007)
+data_2008$grade_level_2008 <- as.numeric(data_2008$grade_level_2008)
+data_2009$grade_level_2009 <- as.numeric(data_2009$grade_level_2009)
+data_2010$grade_level_2010 <- as.numeric(data_2010$grade_level_2010)
+data_2011$grade_level_2011 <- as.numeric(data_2011$grade_level_2011)
+data_2012$grade_level_2012 <- as.numeric(data_2012$grade_level_2012)
+data_2013$grade_level_2013 <- as.numeric(data_2013$grade_level_2013)
+data_2014$grade_level_2014 <- as.numeric(data_2014$grade_level_2014)
+data_2015$grade_level_2015 <- as.numeric(data_2015$grade_level_2015)
 
 
 #######################################
@@ -357,7 +359,7 @@ out_dbn_2002<-data.frame(data_2002[!((df >= 1 & df <= 32) | (df == 75) | ( df== 
 		
 # result: 2002-2005, with d out of range
 # JLM: ALSO 6 ROWS IN 2011 WITH ALL NA.  WHAT ARE THEY?
-
+# - ELmer: This happens when removing the gradelevel AD. I used another way and now this problem is fixed.
 
 # create a count table of d out of range
 out_d_2002 <- data.frame(table(out_dbn_2002$d_2002))
@@ -371,11 +373,13 @@ names(out_d_2004) <- c('d','freq_2004')
 names(out_d_2005) <- c('d','freq_2005')
 
 count_d<-Reduce(function(x, y) merge(x, y, by="d", all=TRUE), list(out_d_2002, out_d_2003, out_d_2004, out_d_2005 )) 
-
+rm(out_dbn_2002, out_dbn_2003, out_dbn_2004, out_dbn_2005, out_dbn_2006, out_dbn_2007, out_dbn_2008, out_dbn_2009, out_dbn_2010, out_dbn_2011, out_dbn_2012, out_dbn_2013, out_dbn_2014, out_dbn_2015 )
 
 #######################################
 ##  MERGE ALL DATASETS ##
 #######################################
+
+merge_2002 <- dplyr::lef_join(data_2002, data_2003[,c("student_id_scram", "grade_level_2003","d_2003", "bn_2003")], by="student_id_scram")
 
 data_2002 <- merge(data_2002, data_2003[,c("student_id_scram", "grade_level_2003","d_2003", "bn_2003")], by="student_id_scram", all.x = TRUE)
 data_2003 <- merge(data_2003, data_2004[,c("student_id_scram", "grade_level_2004","d_2004", "bn_2004")], by="student_id_scram", all.x = TRUE)
