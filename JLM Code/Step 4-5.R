@@ -10,12 +10,14 @@ rm(list=ls())
 dir <- "C:/Users/Jesse/Dropbox/Docs/1. Research/Student Retention"
 
 # set working directory for import
-setwd(file.path(dir, "Data/R"))
+setwd(file.path(dir, "Data/R")) 
+setwd("/Users/elmerleezy/Google Drive/Job/RA/Data Copy/Raw/R")
 
 # include libraries
 library(pryr)
 library(plyr)
 library(purrr)
+library(dplyr)
 
 ##################################################
 # Load Data
@@ -36,263 +38,57 @@ load("data_2013.RData")
 load("data_2014.RData")
 load("data_2015.RData")
 
-######################################################################
-## Clean up data (SHOULD PROBABLY BE MOVED TO PRIOR STEP)
-######################################################################
-
-# Delete NAs in gradelevel (if with NA, the whole school return NA)
-data_2003 <- data_2003[!is.na(data_2003$grade_level_2003), ]
-data_2004 <- data_2004[!is.na(data_2004$grade_level_2004), ]
-data_2005 <- data_2005[!is.na(data_2005$grade_level_2005), ]
-data_2006 <- data_2006[!is.na(data_2006$grade_level_2006), ]
-data_2011 <- data_2011[!is.na(data_2011$grade_level_2011), ]
+#---------------------------------------------------------------------
+# This part below needs more consideration, since it is supposed to 
+# process unmerged datasets
+#---------------------------------------------------------------------
 
 ######################################################################
 ## Count frequency of each grade level to each school and
 ## Identify eligible school/grade combinations for re-enrollment
 ######################################################################
 
-  # 2015
-  grade_count_2015 <- data.frame(ddply(data_2015,.(bn_2015),summarise,
-                                       gradePK=sum(grade_level_2015==-1),
-                                       grade0=sum(grade_level_2015==0),
-                                       grade1=sum(grade_level_2015==1),
-                                       grade2=sum(grade_level_2015==2),
-                                       grade3=sum(grade_level_2015==3),
-                                       grade4=sum(grade_level_2015==4),
-                                       grade5=sum(grade_level_2015==5),
-                                       grade6=sum(grade_level_2015==6),
-                                       grade7=sum(grade_level_2015==7),
-                                       grade8=sum(grade_level_2015==8),
-                                       grade9=sum(grade_level_2015==9),
-                                       grade10=sum(grade_level_2015==10),
-                                       grade11=sum(grade_level_2015==11),
-                                       grade12=sum(grade_level_2015==12)))
-  # 2014
-  grade_count_2014 <- data.frame(ddply(data_2014,.(bn_2014),summarise,
-                                       gradePK=sum(grade_level_2014==-1),
-                                       grade0=sum(grade_level_2014==0),
-                                       grade1=sum(grade_level_2014==1),
-                                       grade2=sum(grade_level_2014==2),
-                                       grade3=sum(grade_level_2014==3),
-                                       grade4=sum(grade_level_2014==4),
-                                       grade5=sum(grade_level_2014==5),
-                                       grade6=sum(grade_level_2014==6),
-                                       grade7=sum(grade_level_2014==7),
-                                       grade8=sum(grade_level_2014==8),
-                                       grade9=sum(grade_level_2014==9),
-                                       grade10=sum(grade_level_2014==10),
-                                       grade11=sum(grade_level_2014==11),
-                                       grade12=sum(grade_level_2014==12)))
-  # 2013
-  grade_count_2013 <- data.frame(ddply(data_2013,.(bn_2013),summarise,
-                                       gradePK=sum(grade_level_2013==-1),
-                                       grade0=sum(grade_level_2013==0),
-                                       grade1=sum(grade_level_2013==1),
-                                       grade2=sum(grade_level_2013==2),
-                                       grade3=sum(grade_level_2013==3),
-                                       grade4=sum(grade_level_2013==4),
-                                       grade5=sum(grade_level_2013==5),
-                                       grade6=sum(grade_level_2013==6),
-                                       grade7=sum(grade_level_2013==7),
-                                       grade8=sum(grade_level_2013==8),
-                                       grade9=sum(grade_level_2013==9),
-                                       grade10=sum(grade_level_2013==10),
-                                       grade11=sum(grade_level_2013==11),
-                                       grade12=sum(grade_level_2013==12)))
-  # 2012
-  grade_count_2012 <- data.frame(ddply(data_2012,.(bn_2012),summarise,
-                                       gradePK=sum(grade_level_2012==-1),
-                                       grade0=sum(grade_level_2012==0),
-                                       grade1=sum(grade_level_2012==1),
-                                       grade2=sum(grade_level_2012==2),
-                                       grade3=sum(grade_level_2012==3),
-                                       grade4=sum(grade_level_2012==4),
-                                       grade5=sum(grade_level_2012==5),
-                                       grade6=sum(grade_level_2012==6),
-                                       grade7=sum(grade_level_2012==7),
-                                       grade8=sum(grade_level_2012==8),
-                                       grade9=sum(grade_level_2012==9),
-                                       grade10=sum(grade_level_2012==10),
-                                       grade11=sum(grade_level_2012==11),
-                                       grade12=sum(grade_level_2012==12)))
-  # 2011
-  grade_count_2011 <- data.frame(ddply(data_2011,.(bn_2011),summarise,
-                                       gradePK=sum(grade_level_2011==-1),
-                                       grade0=sum(grade_level_2011==0),
-                                       grade1=sum(grade_level_2011==1),
-                                       grade2=sum(grade_level_2011==2),
-                                       grade3=sum(grade_level_2011==3),
-                                       grade4=sum(grade_level_2011==4),
-                                       grade5=sum(grade_level_2011==5),
-                                       grade6=sum(grade_level_2011==6),
-                                       grade7=sum(grade_level_2011==7),
-                                       grade8=sum(grade_level_2011==8),
-                                       grade9=sum(grade_level_2011==9),
-                                       grade10=sum(grade_level_2011==10),
-                                       grade11=sum(grade_level_2011==11),
-                                       grade12=sum(grade_level_2011==12)))
-  # 2010
-  grade_count_2010 <- data.frame(ddply(data_2010,.(bn_2010),summarise,
-                                       gradePK=sum(grade_level_2010==-1),
-                                       grade0=sum(grade_level_2010==0),
-                                       grade1=sum(grade_level_2010==1),
-                                       grade2=sum(grade_level_2010==2),
-                                       grade3=sum(grade_level_2010==3),
-                                       grade4=sum(grade_level_2010==4),
-                                       grade5=sum(grade_level_2010==5),
-                                       grade6=sum(grade_level_2010==6),
-                                       grade7=sum(grade_level_2010==7),
-                                       grade8=sum(grade_level_2010==8),
-                                       grade9=sum(grade_level_2010==9),
-                                       grade10=sum(grade_level_2010==10),
-                                       grade11=sum(grade_level_2010==11),
-                                       grade12=sum(grade_level_2010==12)))
-  # 2009
-  grade_count_2009 <- data.frame(ddply(data_2009,.(bn_2009),summarise,
-                                       gradePK=sum(grade_level_2009==-1),
-                                       grade0=sum(grade_level_2009==0),
-                                       grade1=sum(grade_level_2009==1),
-                                       grade2=sum(grade_level_2009==2),
-                                       grade3=sum(grade_level_2009==3),
-                                       grade4=sum(grade_level_2009==4),
-                                       grade5=sum(grade_level_2009==5),
-                                       grade6=sum(grade_level_2009==6),
-                                       grade7=sum(grade_level_2009==7),
-                                       grade8=sum(grade_level_2009==8),
-                                       grade9=sum(grade_level_2009==9),
-                                       grade10=sum(grade_level_2009==10),
-                                       grade11=sum(grade_level_2009==11),
-                                       grade12=sum(grade_level_2009==12)))
-  # 2008
-  grade_count_2008 <- data.frame(ddply(data_2008,.(bn_2008),summarise,
-                                       gradePK=sum(grade_level_2008==-1),
-                                       grade0=sum(grade_level_2008==0),
-                                       grade1=sum(grade_level_2008==1),
-                                       grade2=sum(grade_level_2008==2),
-                                       grade3=sum(grade_level_2008==3),
-                                       grade4=sum(grade_level_2008==4),
-                                       grade5=sum(grade_level_2008==5),
-                                       grade6=sum(grade_level_2008==6),
-                                       grade7=sum(grade_level_2008==7),
-                                       grade8=sum(grade_level_2008==8),
-                                       grade9=sum(grade_level_2008==9),
-                                       grade10=sum(grade_level_2008==10),
-                                       grade11=sum(grade_level_2008==11),
-                                       grade12=sum(grade_level_2008==12)))
-  # 2007
-  grade_count_2007 <- data.frame(ddply(data_2007,.(bn_2007),summarise,
-                                       gradePK=sum(grade_level_2007==-1),
-                                       grade0=sum(grade_level_2007==0),
-                                       grade1=sum(grade_level_2007==1),
-                                       grade2=sum(grade_level_2007==2),
-                                       grade3=sum(grade_level_2007==3),
-                                       grade4=sum(grade_level_2007==4),
-                                       grade5=sum(grade_level_2007==5),
-                                       grade6=sum(grade_level_2007==6),
-                                       grade7=sum(grade_level_2007==7),
-                                       grade8=sum(grade_level_2007==8),
-                                       grade9=sum(grade_level_2007==9),
-                                       grade10=sum(grade_level_2007==10),
-                                       grade11=sum(grade_level_2007==11),
-                                       grade12=sum(grade_level_2007==12)))
-  # 2006
-  grade_count_2006 <- data.frame(ddply(data_2006,.(bn_2006),summarise,
-                                       gradePK=sum(grade_level_2006==-1),
-                                       grade0=sum(grade_level_2006==0),
-                                       grade1=sum(grade_level_2006==1),
-                                       grade2=sum(grade_level_2006==2),
-                                       grade3=sum(grade_level_2006==3),
-                                       grade4=sum(grade_level_2006==4),
-                                       grade5=sum(grade_level_2006==5),
-                                       grade6=sum(grade_level_2006==6),
-                                       grade7=sum(grade_level_2006==7),
-                                       grade8=sum(grade_level_2006==8),
-                                       grade9=sum(grade_level_2006==9),
-                                       grade10=sum(grade_level_2006==10),
-                                       grade11=sum(grade_level_2006==11),
-                                       grade12=sum(grade_level_2006==12)))
-  # 2005
-  grade_count_2005 <- data.frame(ddply(data_2005,.(bn_2005),summarise,
-                                       gradePK=sum(grade_level_2005==-1),
-                                       grade0=sum(grade_level_2005==0),
-                                       grade1=sum(grade_level_2005==1),
-                                       grade2=sum(grade_level_2005==2),
-                                       grade3=sum(grade_level_2005==3),
-                                       grade4=sum(grade_level_2005==4),
-                                       grade5=sum(grade_level_2005==5),
-                                       grade6=sum(grade_level_2005==6),
-                                       grade7=sum(grade_level_2005==7),
-                                       grade8=sum(grade_level_2005==8),
-                                       grade9=sum(grade_level_2005==9),
-                                       grade10=sum(grade_level_2005==10),
-                                       grade11=sum(grade_level_2005==11),
-                                       grade12=sum(grade_level_2005==12)))
-  # 2004
-  grade_count_2004 <- data.frame(ddply(data_2004,.(bn_2004),summarise,
-                                       gradePK=sum(grade_level_2004==-1),
-                                       grade0=sum(grade_level_2004==0),
-                                       grade1=sum(grade_level_2004==1),
-                                       grade2=sum(grade_level_2004==2),
-                                       grade3=sum(grade_level_2004==3),
-                                       grade4=sum(grade_level_2004==4),
-                                       grade5=sum(grade_level_2004==5),
-                                       grade6=sum(grade_level_2004==6),
-                                       grade7=sum(grade_level_2004==7),
-                                       grade8=sum(grade_level_2004==8),
-                                       grade9=sum(grade_level_2004==9),
-                                       grade10=sum(grade_level_2004==10),
-                                       grade11=sum(grade_level_2004==11),
-                                       grade12=sum(grade_level_2004==12)))
-  # 2003
-  grade_count_2003 <- data.frame(ddply(data_2003,.(bn_2003),summarise,
-                                       gradePK=sum(grade_level_2003==-1),
-                                       grade0=sum(grade_level_2003==0),
-                                       grade1=sum(grade_level_2003==1),
-                                       grade2=sum(grade_level_2003==2),
-                                       grade3=sum(grade_level_2003==3),
-                                       grade4=sum(grade_level_2003==4),
-                                       grade5=sum(grade_level_2003==5),
-                                       grade6=sum(grade_level_2003==6),
-                                       grade7=sum(grade_level_2003==7),
-                                       grade8=sum(grade_level_2003==8),
-                                       grade9=sum(grade_level_2003==9),
-                                       grade10=sum(grade_level_2003==10),
-                                       grade11=sum(grade_level_2003==11),
-                                       grade12=sum(grade_level_2003==12)))
-  # 2002
-  grade_count_2002 <- data.frame(ddply(data_2002,.(bn_2002),summarise,
+### Count frequency of each grade level to each school
 
-                                       gradePK=sum(grade_level_2002==-1),
-                                       grade0=sum(grade_level_2002==0),
-                                       grade1=sum(grade_level_2002==1),
-                                       grade2=sum(grade_level_2002==2),
-                                       grade3=sum(grade_level_2002==3),
-                                       grade4=sum(grade_level_2002==4),
-                                       grade5=sum(grade_level_2002==5),
-                                       grade6=sum(grade_level_2002==6),
-                                       grade7=sum(grade_level_2002==7),
-                                       grade8=sum(grade_level_2002==8),
-                                       grade9=sum(grade_level_2002==9),
-                                       grade10=sum(grade_level_2002==10),
-                                       grade11=sum(grade_level_2002==11),
-                                       grade12=sum(grade_level_2002==12)))
+datasets <- list(data_2002, data_2003, data_2004, data_2005, data_2006, data_2007, data_2008, data_2009, data_2010, data_2011, data_2012, data_2013, data_2014, data_2015)
+  #give value of the year
+y <- 2002 
+for(df in datasets) {
+  grade_level<- as.name("grade_level_" %S% y) #indicate variable name
+  grade_count <- df %>%
+    group_by_(.dots = "bn_" %S% y) %>% 
+    summarise(
+      grade0=sum(bquote(.(grade_level))==0),
+      grade1=sum(bquote(.(grade_level))==1),
+      grade2=sum(bquote(.(grade_level))==2),
+      grade3=sum(bquote(.(grade_level))==3),
+      grade4=sum(bquote(.(grade_level))==4),
+      grade5=sum(bquote(.(grade_level))==5),
+      grade6=sum(bquote(.(grade_level))==6),
+      grade7=sum(bquote(.(grade_level))==7),
+      grade8=sum(bquote(.(grade_level))==8),
+      grade9=sum(bquote(.(grade_level))==9),
+      grade10=sum(bquote(.(grade_level))==10),
+      grade11=sum(bquote(.(grade_level))==11),
+      grade12=sum(bquote(.(grade_level))==12))
+  # convert first column to row names
+  grade_count <- data.frame(grade_count)
+  grade_count <- grade_count[rowSums(is.na(grade_count)) == 0,] #delete missing values
+  grade_count <- data.frame(grade_count[,-1], row.names=grade_count[,1])
+  assign("grade_count_"%S% y,grade_count)
+  y <- y+1
+}
 
-# convert first column to row names
-grade_count_2015 <- data.frame(grade_count_2015[,-1], row.names=grade_count_2015[,1])
-grade_count_2014 <- data.frame(grade_count_2014[,-1], row.names=grade_count_2014[,1])
-grade_count_2013 <- data.frame(grade_count_2013[,-1], row.names=grade_count_2013[,1])
-grade_count_2012 <- data.frame(grade_count_2012[,-1], row.names=grade_count_2012[,1])
-grade_count_2011 <- data.frame(grade_count_2011[,-1], row.names=grade_count_2011[,1])
-grade_count_2010 <- data.frame(grade_count_2010[,-1], row.names=grade_count_2010[,1])
-grade_count_2009 <- data.frame(grade_count_2009[,-1], row.names=grade_count_2009[,1])
-grade_count_2008 <- data.frame(grade_count_2008[,-1], row.names=grade_count_2008[,1])
-grade_count_2007 <- data.frame(grade_count_2007[,-1], row.names=grade_count_2007[,1])
-grade_count_2006 <- data.frame(grade_count_2006[,-1], row.names=grade_count_2006[,1])
-grade_count_2005 <- data.frame(grade_count_2005[,-1], row.names=grade_count_2005[,1])
-grade_count_2004 <- data.frame(grade_count_2004[,-1], row.names=grade_count_2004[,1])
-grade_count_2003 <- data.frame(grade_count_2003[,-1], row.names=grade_count_2003[,1])
-grade_count_2002 <- data.frame(grade_count_2002[,-1], row.names=grade_count_2002[,1])
+### Count grade range
+
+gradecount.set <- list(grade_count_2002, grade_count_2003, grade_count_2004, grade_count_2005, grade_count_2006, grade_count_2007, grade_count_2008, grade_count_2009, grade_count_2010, grade_count_2011, grade_count_2012, grade_count_2013, grade_count_2014, grade_count_2015 )
+y <- 2002
+for (df in gradecount.set) {
+  grade_range <- data.frame(cbind(apply(df,1 ,function(x) which(x>10))))
+  names(grade_range) <- c('grade_range_'%S% y)
+  assign("grade_range_"%S% y,grade_range)
+  y <- y+1
+}
 
 # count grade freq >10
 grade_range_2015 <- data.frame(cbind(apply(grade_count_2015,1 ,function(x) which(x>10))))
