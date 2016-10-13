@@ -1,4 +1,3 @@
-
 ##################################################
 # Startup
 ##################################################
@@ -12,8 +11,7 @@ dir <- "C:/Users/Jesse/Dropbox/Docs/1. Research/Student Retention"
 # set working directory for import
 setwd(file.path(dir, "Data/Raw"))
 
-# Elmer set working directory
-# setwd("/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Original/2016 08 15 - Audited Register with LTA")
+# Elmer - setwd("/Users/elmerleezy/Dropbox/NYC High School Re-enrollment/Data/Original/2016 08 15 - Audited Register with LTA")
 
 # set up useful functions 
 `%S%` <- function(x, y) {
@@ -379,28 +377,42 @@ rm(out_dbn_2002, out_dbn_2003, out_dbn_2004, out_dbn_2005, out_dbn_2006, out_dbn
 ##  MERGE ALL DATASETS ##
 #######################################
 
-merge_2002 <- dplyr::lef_join(data_2002, data_2003[,c("student_id_scram", "grade_level_2003","d_2003", "bn_2003")], by="student_id_scram")
+# Save original file
+raw_data_2002 <- data_2002
+raw_data_2003 <- data_2003
+raw_data_2004 <- data_2004
+raw_data_2005 <- data_2005
+raw_data_2006 <- data_2006
+raw_data_2007 <- data_2007
+raw_data_2008 <- data_2008
+raw_data_2009 <- data_2009
+raw_data_2010 <- data_2010
+raw_data_2011 <- data_2011
+raw_data_2012 <- data_2012
+raw_data_2013 <- data_2013
+raw_data_2014 <- data_2014
+raw_data_2015 <- data_2015
 
-data_2002 <- merge(data_2002, data_2003[,c("student_id_scram", "grade_level_2003","d_2003", "bn_2003")], by="student_id_scram", all.x = TRUE)
-data_2003 <- merge(data_2003, data_2004[,c("student_id_scram", "grade_level_2004","d_2004", "bn_2004")], by="student_id_scram", all.x = TRUE)
-data_2004 <- merge(data_2004, data_2005[,c("student_id_scram", "grade_level_2005","d_2005", "bn_2005")], by="student_id_scram", all.x = TRUE)
-data_2005 <- merge(data_2005, data_2006[,c("student_id_scram", "grade_level_2006","d_2006", "bn_2006")], by="student_id_scram", all.x = TRUE)
-data_2006 <- merge(data_2006, data_2007[,c("student_id_scram", "grade_level_2007","d_2007", "bn_2007")], by="student_id_scram", all.x = TRUE)
-data_2007 <- merge(data_2007, data_2008[,c("student_id_scram", "grade_level_2008","d_2008", "bn_2008")], by="student_id_scram", all.x = TRUE)
-data_2008 <- merge(data_2008, data_2009[,c("student_id_scram", "grade_level_2009","d_2009", "bn_2009")], by="student_id_scram", all.x = TRUE)
-data_2009 <- merge(data_2009, data_2010[,c("student_id_scram", "grade_level_2010","d_2010", "bn_2010")], by="student_id_scram", all.x = TRUE)
-data_2010 <- merge(data_2010, data_2011[,c("student_id_scram", "grade_level_2011","d_2011", "bn_2011")], by="student_id_scram", all.x = TRUE)
-data_2011 <- merge(data_2011, data_2012[,c("student_id_scram", "grade_level_2012","d_2012", "bn_2012")], by="student_id_scram", all.x = TRUE)
-data_2012 <- merge(data_2012, data_2013[,c("student_id_scram", "grade_level_2013","d_2013", "bn_2013")], by="student_id_scram", all.x = TRUE)
-data_2013 <- merge(data_2013, data_2014[,c("student_id_scram", "grade_level_2014","d_2014", "bn_2014")], by="student_id_scram", all.x = TRUE)
-data_2014 <- merge(data_2014, data_2015[,c("student_id_scram", "grade_level_2015","d_2015", "bn_2015")], by="student_id_scram", all.x = TRUE)
+data_2002 <- dplyr::left_join(data_2002, data_2003[,c("student_id_scram", "grade_level_2003","d_2003", "bn_2003")], by="student_id_scram")
+data_2003 <- dplyr::left_join(data_2003, data_2004[,c("student_id_scram", "grade_level_2004","d_2004", "bn_2004")], by="student_id_scram")
+data_2004 <- dplyr::left_join(data_2004, data_2005[,c("student_id_scram", "grade_level_2005","d_2005", "bn_2005")], by="student_id_scram")
+data_2005 <- dplyr::left_join(data_2005, data_2006[,c("student_id_scram", "grade_level_2006","d_2006", "bn_2006")], by="student_id_scram")
+data_2006 <- dplyr::left_join(data_2006, data_2007[,c("student_id_scram", "grade_level_2007","d_2007", "bn_2007")], by="student_id_scram")
+data_2007 <- dplyr::left_join(data_2007, data_2008[,c("student_id_scram", "grade_level_2008","d_2008", "bn_2008")], by="student_id_scram")
+data_2008 <- dplyr::left_join(data_2008, data_2009[,c("student_id_scram", "grade_level_2009","d_2009", "bn_2009")], by="student_id_scram")
+data_2009 <- dplyr::left_join(data_2009, data_2010[,c("student_id_scram", "grade_level_2010","d_2010", "bn_2010")], by="student_id_scram")
+data_2010 <- dplyr::left_join(data_2010, data_2011[,c("student_id_scram", "grade_level_2011","d_2011", "bn_2011")], by="student_id_scram")
+data_2011 <- dplyr::left_join(data_2011, data_2012[,c("student_id_scram", "grade_level_2012","d_2012", "bn_2012")], by="student_id_scram")
+data_2012 <- dplyr::left_join(data_2012, data_2013[,c("student_id_scram", "grade_level_2013","d_2013", "bn_2013")], by="student_id_scram")
+data_2013 <- dplyr::left_join(data_2013, data_2014[,c("student_id_scram", "grade_level_2014","d_2014", "bn_2014")], by="student_id_scram")
+data_2014 <- dplyr::left_join(data_2014, data_2015[,c("student_id_scram", "grade_level_2015","d_2015", "bn_2015")], by="student_id_scram")
 
 #######################################
 ##  EXPORT DATA ##
 #######################################
 
 # Set file path for exporting CSV files
-setwd(file.path(dir, "Data/Output"))
+setwd("/Users/elmerleezy/Google Drive/Job/RA/Data Copy/Raw/R")
 
 # Export data
 write.csv(count_missing, file = 'count_missing.csv')
@@ -427,6 +439,20 @@ save(data_2013, file = "data_2013.RData")
 save(data_2014, file = "data_2014.RData")
 save(data_2015, file = "data_2015.RData")
 
+save(raw_data_2002, file = "raw_data_2002.RData")
+save(raw_data_2003, file = "raw_data_2003.RData")
+save(raw_data_2004, file = "raw_data_2004.RData")
+save(raw_data_2005, file = "raw_data_2005.RData")
+save(raw_data_2006, file = "raw_data_2006.RData")
+save(raw_data_2007, file = "raw_data_2007.RData")
+save(raw_data_2008, file = "raw_data_2008.RData")
+save(raw_data_2009, file = "raw_data_2009.RData")
+save(raw_data_2010, file = "raw_data_2010.RData")
+save(raw_data_2011, file = "raw_data_2011.RData")
+save(raw_data_2012, file = "raw_data_2012.RData")
+save(raw_data_2013, file = "raw_data_2013.RData")
+save(raw_data_2014, file = "raw_data_2014.RData")
+save(raw_data_2015, file = "raw_data_2015.RData")
 
 #######################################
 ## EXPLORATION OF LOOPS ##
