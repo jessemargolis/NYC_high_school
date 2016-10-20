@@ -81,124 +81,28 @@ for(df in datasets) {
 
 ### Count grade range
 
-gradecount.set <- list(grade_count_2002, grade_count_2003, grade_count_2004, grade_count_2005, grade_count_2006, grade_count_2007, grade_count_2008, grade_count_2009, grade_count_2010, grade_count_2011, grade_count_2012, grade_count_2013, grade_count_2014, grade_count_2015 )
+gradecount.list <- list(grade_count_2002, grade_count_2003, grade_count_2004, grade_count_2005, grade_count_2006, grade_count_2007, grade_count_2008, grade_count_2009, grade_count_2010, grade_count_2011, grade_count_2012, grade_count_2013, grade_count_2014, grade_count_2015 )
+rm(grade_count_2002, grade_count_2003, grade_count_2004, grade_count_2005, grade_count_2006, grade_count_2007, grade_count_2008, grade_count_2009, grade_count_2010, grade_count_2011, grade_count_2012, grade_count_2013, grade_count_2014, grade_count_2015 )
+
 y <- 2002
-for (df in gradecount.set) {
+for (df in gradecount.list) {
+  # count grade freq >10
   grade_range <- data.frame(cbind(apply(df,1 ,function(x) which(x>10))))
+  # convert first column names to row names
   names(grade_range) <- c('grade_range_'%S% y)
+  # minus 2 to get the right grades
+  var1 <- "grade_range_" %S% y
+  grade_range[[var1]] <- lapply(grade_range[,1],function(x) x-2)
+  # minus 1 to determine continuing grade in the previous year
+  var2 <- "continuous_" %S% y
+  grade_range[[var2]] <- lapply(grade_range[,1],function(x) x-1) 
+  # insert first column as row names
+  grade_range[['bn']] <- rownames(grade_range)
+  # re-order grade_range columns 
+  grade_range <- grade_range[c(3,1,2)]
   assign("grade_range_"%S% y,grade_range)
   y <- y+1
 }
-
-# count grade freq >10
-grade_range_2015 <- data.frame(cbind(apply(grade_count_2015,1 ,function(x) which(x>10))))
-grade_range_2014 <- data.frame(cbind(apply(grade_count_2014,1 ,function(x) which(x>10))))
-grade_range_2013 <- data.frame(cbind(apply(grade_count_2013,1 ,function(x) which(x>10))))
-grade_range_2012 <- data.frame(cbind(apply(grade_count_2012,1 ,function(x) which(x>10))))
-grade_range_2011 <- data.frame(cbind(apply(grade_count_2011,1 ,function(x) which(x>10))))
-grade_range_2010 <- data.frame(cbind(apply(grade_count_2010,1 ,function(x) which(x>10))))
-grade_range_2009 <- data.frame(cbind(apply(grade_count_2009,1 ,function(x) which(x>10))))
-grade_range_2008 <- data.frame(cbind(apply(grade_count_2008,1 ,function(x) which(x>10))))
-grade_range_2007 <- data.frame(cbind(apply(grade_count_2007,1 ,function(x) which(x>10))))
-grade_range_2006 <- data.frame(cbind(apply(grade_count_2006,1 ,function(x) which(x>10))))
-grade_range_2005 <- data.frame(cbind(apply(grade_count_2005,1 ,function(x) which(x>10))))
-grade_range_2004 <- data.frame(cbind(apply(grade_count_2004,1 ,function(x) which(x>10))))
-grade_range_2003 <- data.frame(cbind(apply(grade_count_2003,1 ,function(x) which(x>10))))
-grade_range_2002 <- data.frame(cbind(apply(grade_count_2002,1 ,function(x) which(x>10))))
-
-# convert first column names to row names
-names(grade_range_2015) <- c('grade_range_2015')
-names(grade_range_2014) <- c('grade_range_2014')
-names(grade_range_2013) <- c('grade_range_2013')
-names(grade_range_2012) <- c('grade_range_2012')
-names(grade_range_2011) <- c('grade_range_2011')
-names(grade_range_2010) <- c('grade_range_2010')
-names(grade_range_2009) <- c('grade_range_2009')
-names(grade_range_2008) <- c('grade_range_2008')
-names(grade_range_2007) <- c('grade_range_2007')
-names(grade_range_2006) <- c('grade_range_2006')
-names(grade_range_2005) <- c('grade_range_2005')
-names(grade_range_2004) <- c('grade_range_2004')
-names(grade_range_2003) <- c('grade_range_2003')
-names(grade_range_2002) <- c('grade_range_2002')
-
-# minus 2 to get the right grades
-grade_range_2015$grade_range_2015<- lapply(grade_range_2015$grade_range_2015,function(x) x-2) 
-grade_range_2014$grade_range_2014<- lapply(grade_range_2014$grade_range_2014,function(x) x-2) 
-grade_range_2013$grade_range_2013<- lapply(grade_range_2013$grade_range_2013,function(x) x-2) 
-grade_range_2012$grade_range_2012<- lapply(grade_range_2012$grade_range_2012,function(x) x-2) 
-grade_range_2011$grade_range_2011<- lapply(grade_range_2011$grade_range_2011,function(x) x-2) 
-grade_range_2010$grade_range_2010<- lapply(grade_range_2010$grade_range_2010,function(x) x-2) 
-grade_range_2009$grade_range_2009<- lapply(grade_range_2009$grade_range_2009,function(x) x-2) 
-grade_range_2008$grade_range_2008<- lapply(grade_range_2008$grade_range_2008,function(x) x-2) 
-grade_range_2007$grade_range_2007<- lapply(grade_range_2007$grade_range_2007,function(x) x-2) 
-grade_range_2006$grade_range_2006<- lapply(grade_range_2006$grade_range_2006,function(x) x-2) 
-grade_range_2005$grade_range_2005<- lapply(grade_range_2005$grade_range_2005,function(x) x-2) 
-grade_range_2004$grade_range_2004<- lapply(grade_range_2004$grade_range_2004,function(x) x-2) 
-grade_range_2003$grade_range_2003<- lapply(grade_range_2003$grade_range_2003,function(x) x-2) 
-grade_range_2002$grade_range_2002<- lapply(grade_range_2002$grade_range_2002,function(x) x-2) 
-
-# minus 1 to determine continuing grade in the previous year
-grade_range_2015$continuous_2014<- lapply(grade_range_2015$grade_range_2015,function(x) x-1) 
-grade_range_2014$continuous_2013<- lapply(grade_range_2014$grade_range_2014,function(x) x-1) 
-grade_range_2013$continuous_2012<- lapply(grade_range_2013$grade_range_2013,function(x) x-1) 
-grade_range_2012$continuous_2011<- lapply(grade_range_2012$grade_range_2012,function(x) x-1) 
-grade_range_2011$continuous_2010<- lapply(grade_range_2011$grade_range_2011,function(x) x-1) 
-grade_range_2010$continuous_2009<- lapply(grade_range_2010$grade_range_2010,function(x) x-1) 
-grade_range_2009$continuous_2008<- lapply(grade_range_2009$grade_range_2009,function(x) x-1) 
-grade_range_2008$continuous_2007<- lapply(grade_range_2008$grade_range_2008,function(x) x-1) 
-grade_range_2007$continuous_2006<- lapply(grade_range_2007$grade_range_2007,function(x) x-1) 
-grade_range_2006$continuous_2005<- lapply(grade_range_2006$grade_range_2006,function(x) x-1) 
-grade_range_2005$continuous_2004<- lapply(grade_range_2005$grade_range_2005,function(x) x-1) 
-grade_range_2004$continuous_2003<- lapply(grade_range_2004$grade_range_2004,function(x) x-1) 
-grade_range_2003$continuous_2002<- lapply(grade_range_2003$grade_range_2003,function(x) x-1) 
-grade_range_2002$continuous_2001<- lapply(grade_range_2002$grade_range_2002,function(x) x-1) 
-
-# insert first column as row names
-grade_range_2002$bn <- rownames(grade_range_2002)
-grade_range_2003$bn <- rownames(grade_range_2003)
-grade_range_2004$bn <- rownames(grade_range_2004)
-grade_range_2005$bn <- rownames(grade_range_2005)
-grade_range_2006$bn <- rownames(grade_range_2006)
-grade_range_2007$bn <- rownames(grade_range_2007)
-grade_range_2008$bn <- rownames(grade_range_2008)
-grade_range_2009$bn <- rownames(grade_range_2009)
-grade_range_2010$bn <- rownames(grade_range_2010)
-grade_range_2011$bn <- rownames(grade_range_2011)
-grade_range_2012$bn <- rownames(grade_range_2012)
-grade_range_2013$bn <- rownames(grade_range_2013)
-grade_range_2014$bn <- rownames(grade_range_2014)
-grade_range_2015$bn <- rownames(grade_range_2015)
-
-# re-order grade_range columns 
-grade_range_reorder <- function(grade_range){
-  grade_range <- grade_range[c(3,1,2)]
-  grade_range
-}
-grade_range_2002 <- grade_range_reorder(grade_range_2002)
-grade_range_2003 <- grade_range_reorder(grade_range_2003)
-grade_range_2004 <- grade_range_reorder(grade_range_2004)
-grade_range_2005 <- grade_range_reorder(grade_range_2005)
-grade_range_2006 <- grade_range_reorder(grade_range_2006)
-grade_range_2007 <- grade_range_reorder(grade_range_2007)
-grade_range_2008 <- grade_range_reorder(grade_range_2008)
-grade_range_2009 <- grade_range_reorder(grade_range_2009)
-grade_range_2010 <- grade_range_reorder(grade_range_2010)
-grade_range_2011 <- grade_range_reorder(grade_range_2011)
-grade_range_2012 <- grade_range_reorder(grade_range_2012)
-grade_range_2013 <- grade_range_reorder(grade_range_2013)
-grade_range_2014 <- grade_range_reorder(grade_range_2014)
-grade_range_2015 <- grade_range_reorder(grade_range_2015)
-
-# Create grade_range_all
-grade_range_all<-Reduce(function(x, y) merge(x, y, by='bn', all=TRUE), 
-                        list(grade_range_2014,grade_range_2013,grade_range_2012,
-                             grade_range_2011,grade_range_2010,grade_range_2009,
-                             grade_range_2008,grade_range_2007,grade_range_2006,
-                             grade_range_2005,grade_range_2004,grade_range_2003,
-                             grade_range_2002)) 
-
-grade_range_all_char <- data.frame(lapply(grade_range_all, as.character), stringsAsFactors=FALSE)
 
 
 ######################################################################
